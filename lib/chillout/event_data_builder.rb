@@ -24,8 +24,7 @@ module Chillout
               full_name: error.current_user_full_name
             }
           },
-          rack_environment: build_rack_environment(error),
-          shell_environment: @config.shell_environment
+          rack_environment: build_rack_environment(error)
         },
         notifier: build_notifier
       }

@@ -9,7 +9,6 @@ module Chillout
       @api_key = "s3cr3t"
 
       @config = Config.new(@api_key)
-      @config.shell_environment = @shell_env
       @config.platform = "rails"
       @config.environment = "development"
       @config.notifier_name = "chillout"
@@ -97,10 +96,6 @@ module Chillout
       def test_rack_environment
         expected_value = Hash[@env.collect { |k,v| [k, v.to_s] }]
         assert_content :rack_environment, expected_value
-      end
-
-      def test_shell_environment
-        assert_content :shell_environment, @shell_env
       end
 
       def test_notifier_name

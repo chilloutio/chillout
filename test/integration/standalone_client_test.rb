@@ -32,11 +32,6 @@ class StandaloneClientTest < ChilloutTestCase
     assert_equal "exception", request_body["event"]
   end
 
-  def test_request_body_contains_shell_environment
-    send_error
-    assert_equal ENV.to_hash, request_body["content"]["shell_environment"]
-  end
-
   def test_request_body_contains_notifier_name
     send_error
     assert_equal "Chillout", request_body["notifier"]["name"]

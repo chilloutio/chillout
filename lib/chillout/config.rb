@@ -9,10 +9,8 @@ module Chillout
     DEFAULT_PORT          = 80
     DEFAULT_NOTIFIER_NAME = "Chillout"
     DEFAULT_NOTIFIER_URL  = "http://github.com/chilloutio/chillout"
-    DEFAULT_SHELL_ENV     = ENV.to_hash
 
     attr_accessor :environment
-    attr_accessor :shell_environment
     attr_accessor :notifier_name
     attr_accessor :notifier_url
     attr_accessor :version
@@ -32,7 +30,6 @@ module Chillout
       @notifier_name = DEFAULT_NOTIFIER_NAME
       @notifier_url = DEFAULT_NOTIFIER_URL
       @version = VERSION
-      @shell_environment = DEFAULT_SHELL_ENV
       @logger = Logger.new(STDOUT)
       @ssl = true
     end
