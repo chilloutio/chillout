@@ -15,6 +15,8 @@ module Chillout
 
         app.middleware.use Middleware::ExceptionMonitor, client
         app.middleware.use Middleware::CreationsMonitor, client
+
+        client.start_worker
       end
     end
   end

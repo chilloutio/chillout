@@ -11,6 +11,7 @@ module Chillout
       @config = Chillout::Config.new(api_key)
       @config.ssl = false
       @client = Chillout::Client.new(@config)
+      @client.start_worker
     end
 
     def app
@@ -29,6 +30,7 @@ module Chillout
 
     def test_creations_values
       get "/"
+      Thread.pass
       assert_equal 2, request_body["content"]["creations"]["User"]
       assert_equal 3, request_body["content"]["creations"]["Cart"]
     end

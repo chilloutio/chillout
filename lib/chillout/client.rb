@@ -7,6 +7,8 @@ require 'chillout/config'
 require 'chillout/error'
 require 'chillout/event_data_builder'
 require 'chillout/prefixed_logger'
+require 'chillout/worker'
+require 'thread'
 
 module Chillout
   class Client
@@ -16,6 +18,7 @@ module Chillout
 
     attr_reader :config
     attr_reader :logger
+    attr_reader :queue
 
     def initialize(config_or_api_key, options = {})
       build_config(config_or_api_key, options)
@@ -27,12 +30,24 @@ module Chillout
       @http_client = HttpClient.new(@config, logger)
       @event_data_builder = EventDataBuilder.new(@config)
       @server_side = ServerSide.new(@event_data_builder, @http_client)
-      @filter      = ErrorFilter.new
-      @dispatcher  = Dispatcher.new(@filter, @server_side)
+      @filter = ErrorFilter.new
+      @dispatcher = Dispatcher.new(@filter, @server_side)
+      @queue = Queue.new
     end
 
     def send_exception(exception, environment = {})
       send_error(Error.new(exception, environment))
+    end
+
+    def enqueue(creations)
+      @queue << creations
+    end
+
+    def start_worker
+      thread = Thread.new do
+        worker = Worker.new(@dispatcher, @queue, @logger)
+        worker.run
+      end
     end
 
     private

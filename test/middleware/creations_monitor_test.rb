@@ -18,14 +18,13 @@ module Chillout
         end
 
         def test_behaves_like_rack_middleware
-          @client.stubs(:send_creations)
+          @client.stubs(:enqueue)
           response = @middleware.call(@env)
-
           assert_equal [200, @env, ['hello']], response
         end
 
-        def test_dispatch_creations_from_thread_current
-          @client.expects(:send_creations).with(:creations)
+        def test_clients_queue_receive_creations
+          @client.expects(:enqueue).with(:creations)
 
           @middleware.call(@env)
         end

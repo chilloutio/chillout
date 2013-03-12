@@ -8,8 +8,9 @@ module Chillout
 
       def call(env)
         response = @app.call(env)
+      ensure
         if Thread.current[:creations]
-          @client.send_creations(Thread.current[:creations])
+          @client.enqueue(Thread.current[:creations])
           Thread.current[:creations] = nil
         end
         response

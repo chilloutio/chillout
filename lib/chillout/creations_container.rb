@@ -4,18 +4,28 @@ module Chillout
       @container = Hash.new {|hash, key| hash[key] = 0}
     end
 
-    def increment!(class_name)
-      key = class_name.to_sym
-      @container[key] += 1
+    def increment!(class_name, value=1)
+      key = key(class_name)
+      @container[key] += value
     end
 
     def [](name)
-      key = name.to_sym
+      key = key(name)
       @container[key]
+    end
+
+    def key(name)
+      name.to_sym
     end
 
     def resource_keys
       @container.keys
+    end
+
+    def merge(other_container)
+      for key in other_container.resource_keys
+        increment!(key, other_container[key])
+      end
     end
   end
 end
