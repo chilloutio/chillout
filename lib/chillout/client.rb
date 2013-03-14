@@ -35,10 +35,6 @@ module Chillout
       @queue = Queue.new
     end
 
-    def send_exception(exception, environment = {})
-      send_error(Error.new(exception, environment))
-    end
-
     def enqueue(creations)
       @queue << creations
     end
