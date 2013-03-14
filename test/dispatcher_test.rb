@@ -56,13 +56,15 @@ class DispatcherTest < ChilloutTestCase
     dispatcher.send_creations(:creations)
   end
 
-  def test_send_creations_ignore_not_sent_exception
+  def test_send_creations_raise_exception_if_server_side_failed_to_send_request
     server_side = stub()
     server_side.stubs(:send_creations).raises(Chillout::HttpClient::NotSent.new(:http_error))
 
     dispatcher = Chillout::Dispatcher.new(mock, server_side)
 
-    assert_nil dispatcher.send_creations(:creations)
+    assert_raises Chillout::Dispatcher::SendCreationsFailed do
+      dispatcher.send_creations(:creations)
+    end
   end
 
 end
