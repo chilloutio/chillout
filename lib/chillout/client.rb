@@ -27,11 +27,11 @@ module Chillout
 
       @logger = PrefixedLogger.new("Chillout", @config.logger)
 
-      @http_client = HttpClient.new(@config, logger)
-      @event_data_builder = EventDataBuilder.new(@config)
-      @server_side = ServerSide.new(@event_data_builder, @http_client)
+      @http_client = HttpClient.new(@config, logger).freeze
+      @event_data_builder = EventDataBuilder.new(@config).freeze
+      @server_side = ServerSide.new(@event_data_builder, @http_client).freeze
       @filter = ErrorFilter.new
-      @dispatcher = Dispatcher.new(@filter, @server_side)
+      @dispatcher = Dispatcher.new(@filter, @server_side).freeze
       @queue = Queue.new
     end
 
