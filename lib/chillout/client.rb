@@ -1,10 +1,8 @@
 require 'forwardable'
 require 'chillout/server_side'
 require 'chillout/http_client'
-require 'chillout/error_filter'
 require 'chillout/dispatcher'
 require 'chillout/config'
-require 'chillout/error'
 require 'chillout/event_data_builder'
 require 'chillout/prefixed_logger'
 require 'chillout/worker'
@@ -14,7 +12,7 @@ module Chillout
   class Client
     extend Forwardable
 
-    def_delegators :@dispatcher, :dispatch_error, :send_error, :send_creations
+    def_delegators :@dispatcher, :send_creations
 
     attr_reader :config
     attr_reader :logger
@@ -30,7 +28,6 @@ module Chillout
       @http_client = HttpClient.new(@config, logger).freeze
       @event_data_builder = EventDataBuilder.new(@config).freeze
       @server_side = ServerSide.new(@event_data_builder, @http_client).freeze
-      @filter = ErrorFilter.new
       @dispatcher = Dispatcher.new(@filter, @server_side).freeze
       @queue = Queue.new
     end
