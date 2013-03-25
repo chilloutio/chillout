@@ -18,5 +18,9 @@ module Chillout
         client.start_worker
       end
     end
+
+    rake_tasks do
+      load "chillout/tasks.rb"
+    end
   end
 end

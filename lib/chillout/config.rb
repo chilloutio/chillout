@@ -48,5 +48,13 @@ module Chillout
       @authentication_password || api_key
     end
 
+    def to_s
+      <<-eos
+ * hostname: #{hostname}
+ * port: #{port}
+ * ssl: #{ssl}
+      eos
+    end
+
   end
 end
