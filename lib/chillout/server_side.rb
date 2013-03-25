@@ -18,6 +18,10 @@ module Chillout
       @http_client.post('/metrics', data)
     end
 
+    def send_check
+      @http_client.get('/check')
+    end
+
     private
       def timestamp
         Time.now.iso8601

@@ -6,13 +6,14 @@ require 'chillout/config'
 require 'chillout/event_data_builder'
 require 'chillout/prefixed_logger'
 require 'chillout/worker'
+require 'chillout/check_result'
 require 'thread'
 
 module Chillout
   class Client
     extend Forwardable
 
-    def_delegators :@dispatcher, :send_creations
+    def_delegators :@dispatcher, :send_creations, :check_api_connection
 
     attr_reader :config
     attr_reader :logger

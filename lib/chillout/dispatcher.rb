@@ -13,5 +13,12 @@ module Chillout
     rescue HttpClient::NotSent
       raise SendCreationsFailed.new
     end
+
+    def check_api_connection
+      response = @server_side.send_check
+      CheckResult.new(response)
+    rescue HttpClient::NotReceived => e
+      CheckResult.new(e)
+    end
   end
 end
