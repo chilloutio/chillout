@@ -9,7 +9,6 @@ module Chillout
       api_key = "xyz123"
       stub_api_request(api_key, "metrics")
       @config = Chillout::Config.new(api_key)
-      @config.ssl = false
       @client = Chillout::Client.new(@config)
       @client.start_worker
     end

@@ -6,7 +6,7 @@ module Chillout
   class Config
 
     DEFAULT_HOSTNAME      = "api.chillout.io"
-    DEFAULT_PORT          = 80
+    DEFAULT_PORT          = 443
     DEFAULT_NOTIFIER_NAME = "Chillout"
     DEFAULT_NOTIFIER_URL  = "http://github.com/chilloutio/chillout"
 
