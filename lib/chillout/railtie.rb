@@ -7,7 +7,7 @@ module Chillout
       if !app.config.chillout.empty?
         existing_option_keys = [:port, :hostname, :ssl].select{|key| app.config.chillout.has_key?(key)}
         options_list = existing_option_keys.map{|key| [key, app.config.chillout[key]]}
-        options = Hash[options_list].merge(logger: Rails.logger)
+        options = Hash[options_list].merge(:logger => Rails.logger)
 
         client = Client.new(app.config.chillout[:secret], options)
 

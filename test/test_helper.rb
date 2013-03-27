@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'mocha'
 require 'contest'
-require 'webmock/minitest'
+require 'webmock/test_unit'
 require 'rack/test'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
@@ -9,6 +9,13 @@ $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'chillout'
 
 class ChilloutTestCase < Test::Unit::TestCase
+  def refute(value, message=nil)
+    assert !value, message || "Expected #{value.inspect} to be false."
+  end
+
+  def assert_includes(collection, object, message=nil)
+    assert collection.include?(object), message || "#{collection.inspect} expected to include #{object.inspect}."
+  end
 
   def build_exception(klass = Exception, message = "Test Exception")
     raise klass.new(message)
@@ -33,7 +40,7 @@ class ChilloutTestCase < Test::Unit::TestCase
   end
 
   def assert_request_headers(resource_name, headers = {})
-    assert_requested(:post, api_url(resource_name), headers: headers)
+    assert_requested(:post, api_url(resource_name), :headers => headers)
   end
 
   def api_url(resource_name)

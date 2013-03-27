@@ -9,7 +9,7 @@ class ClientTest < ChilloutTestCase
   end
 
   def test_initialize_with_options_hash
-    client = Chillout::Client.new("xyz123", platform: 'rack')
+    client = Chillout::Client.new("xyz123", :platform => 'rack')
     assert_equal "xyz123", client.config.api_key
     assert_equal "rack", client.config.platform
   end
@@ -23,7 +23,7 @@ class ClientTest < ChilloutTestCase
   end
 
   def test_initialize_with_options_hash_and_block
-    client = Chillout::Client.new("xyz", platform: 'rack') do |config|
+    client = Chillout::Client.new("xyz", :platform => 'rack') do |config|
       config.port = 443
     end
     assert_equal "xyz", client.config.api_key

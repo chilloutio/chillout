@@ -6,13 +6,13 @@ module Chillout
 
     def build_from_creations_container(creations_container, timestamp)
       {
-        metric: "creations",
-        timestamp: timestamp,
-        content: {
-          creations: build_creations_content(creations_container),
-          environment: @config.environment
+        :metric => "creations",
+        :timestamp => timestamp,
+        :content => {
+          :creations => build_creations_content(creations_container),
+          :environment => @config.environment
         },
-        notifier: build_notifier
+        :notifier => build_notifier
       }
     end
 
@@ -25,9 +25,9 @@ module Chillout
 
     def build_notifier
       {
-        name: @config.notifier_name,
-        version: @config.version,
-        url: @config.notifier_url
+        :name => @config.notifier_name,
+        :version => @config.version,
+        :url => @config.notifier_url
       }
     end
   end

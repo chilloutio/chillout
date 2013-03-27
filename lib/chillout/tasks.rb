@@ -3,7 +3,7 @@ namespace :chillout do
   task :check do
     Rails.initialize!
     config = Rails.configuration.chillout
-    client = Chillout::Client.new(config[:secret], config.reject{|x| x == :secret})
+    client = Chillout::Client.new(config[:secret], config.reject{|key, value| key == :secret})
     check_result = client.check_api_connection
 
     if check_result.successful?

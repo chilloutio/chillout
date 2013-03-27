@@ -5,7 +5,7 @@ module Chillout
     def inherited(subclass)
       super
       class_name = subclass.name
-      subclass.after_commit on: :create do
+      subclass.after_commit :on => :create do
         Thread.current[:creations] ||= CreationsContainer.new
         creations = Thread.current[:creations]
         creations.increment!(class_name)

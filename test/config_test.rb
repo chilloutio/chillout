@@ -11,7 +11,7 @@ class ConfigTest < ChilloutTestCase
   end
 
   def test_update_with_options_hash
-    @config.update(platform: 'rack')
+    @config.update(:platform => 'rack')
     assert_equal 'rack', @config.platform
   end
 
