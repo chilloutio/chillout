@@ -1,5 +1,7 @@
 # Chillout
 
+https://travis-ci.org/chilloutio/chillout.png
+
 ## Installation
 
 Add this line to your Rails application's Gemfile:
