@@ -1,6 +1,6 @@
 # Chillout
 
-https://travis-ci.org/chilloutio/chillout.png
+[![Build Status](https://travis-ci.org/chilloutio/chillout.png)](https://travis-ci.org/chilloutio/chillout)
 
 ## Installation
 
