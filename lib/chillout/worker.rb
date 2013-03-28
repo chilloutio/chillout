@@ -37,7 +37,13 @@ module Chillout
       logger.error "Sending metrics failed"
     end
 
+    def send_startup_message
+      dispatcher.send_startup_message
+      logger.info "Sending startup message"
+    end
+
     def run
+      send_startup_message
       loop do
         containers_to_merge = get_all_containers_to_process
         creations_container = merge_containers(containers_to_merge)

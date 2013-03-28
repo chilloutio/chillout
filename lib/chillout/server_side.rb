@@ -22,6 +22,12 @@ module Chillout
       @http_client.get('/check')
     end
 
+    def send_startup_message
+      @http_client.post('/clients', {
+        :message => 'worker started'
+      })
+    end
+
     private
       def timestamp
         Time.now.iso8601

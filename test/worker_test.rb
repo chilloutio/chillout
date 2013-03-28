@@ -36,5 +36,10 @@ module Chillout
       @queue.expects(:<<).with(:creations_container)
       @worker.send_creations(:creations_container)
     end
+
+    def test_send_startup_message_is_delegated_to_dispatcher
+      @dispatcher.expects(:send_startup_message)
+      @worker.send_startup_message
+    end
   end
 end

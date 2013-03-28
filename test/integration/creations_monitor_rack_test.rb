@@ -7,6 +7,7 @@ module Chillout
 
     def setup
       api_key = "xyz123"
+      stub_api_request(api_key, "clients")
       stub_api_request(api_key, "metrics")
       @config = Chillout::Config.new(api_key)
       @client = Chillout::Client.new(@config)
