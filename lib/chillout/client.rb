@@ -29,7 +29,7 @@ module Chillout
       @http_client = HttpClient.new(@config, logger).freeze
       @event_data_builder = EventDataBuilder.new(@config).freeze
       @server_side = ServerSide.new(@event_data_builder, @http_client).freeze
-      @dispatcher = Dispatcher.new(@filter, @server_side).freeze
+      @dispatcher = Dispatcher.new(@server_side).freeze
       @queue = Queue.new
     end
 

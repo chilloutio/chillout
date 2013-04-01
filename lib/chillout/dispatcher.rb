@@ -3,8 +3,7 @@ module Chillout
     class SendCreationsFailed < StandardError
     end
 
-    def initialize(filter, server_side)
-      @filter      = filter
+    def initialize(server_side)
       @server_side = server_side
     end
 
