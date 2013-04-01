@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "json", "~> 1.7.0"
   gem.add_development_dependency "minitest", "~>3.2.0"
   gem.add_development_dependency "rake",  "~> 0.9.2"
-  gem.add_development_dependency "mocha", "~> 0.12.7"
+  gem.add_development_dependency "mocha", "0.12.8"
   gem.add_development_dependency "contest", "~> 0.1.3"
   gem.add_development_dependency "rack-test", "~> 0.6.2"
   gem.add_development_dependency "webmock", "~> 1.8.11"
