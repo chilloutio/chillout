@@ -34,6 +34,7 @@ module Chillout
     end
 
     def enqueue(creations)
+      @logger.info "Creations were enqueued."
       @queue << creations
     end
 

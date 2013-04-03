@@ -10,6 +10,7 @@ module Chillout
         response = @app.call(env)
       ensure
         if Thread.current[:creations]
+          @client.logger.info "Non-empty creations container found"
           @client.enqueue(Thread.current[:creations])
           Thread.current[:creations] = nil
         end
