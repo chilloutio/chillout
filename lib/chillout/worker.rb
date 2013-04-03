@@ -18,6 +18,7 @@ module Chillout
           break
         end
       end
+      logger.info "Received containers to process: #{all_containers.count}"
       all_containers
     end
 
@@ -30,8 +31,9 @@ module Chillout
     end
 
     def send_creations(creations_container)
+      logger.info "Trying to send creations"
       dispatcher.send_creations(creations_container)
-      logger.info "Sending metrics"
+      logger.info "Metrics sent"
     rescue Dispatcher::SendCreationsFailed
       queue << creations_container
       logger.error "Sending metrics failed"
