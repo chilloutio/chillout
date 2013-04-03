@@ -5,8 +5,9 @@ module Chillout
     config.chillout = ActiveSupport::OrderedOptions.new
     initializer "chillout.creations_listener_initialization" do |rails_app|
       chillout_config = rails_app.config.chillout
-      return if chillout_config.empty?
-      RailsInitializer.new(rails_app, chillout_config, Rails.logger).start
+      if !chillout_config.empty?
+        RailsInitializer.new(rails_app, chillout_config, Rails.logger).start
+      end
     end
 
     rake_tasks do
