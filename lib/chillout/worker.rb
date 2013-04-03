@@ -10,7 +10,9 @@ module Chillout
     end
 
     def get_all_containers_to_process
+      logger.info "Waiting for at least one container."
       all_containers = [queue.pop]
+      logger.info "Received at least one container."
       loop do
         begin
           all_containers << queue.pop(true)
