@@ -47,6 +47,7 @@ module Chillout
     end
 
     def run
+      logger.info "Worker started"
       send_startup_message
       loop do
         containers_to_merge = get_all_containers_to_process

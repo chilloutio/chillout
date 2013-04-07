@@ -48,6 +48,15 @@ class ChilloutTestCase < Test::Unit::TestCase
     "https://#{@_api_key}:#{@_api_key}@api.chillout.io/#{resource_name}"
   end
 
+  def null_logger
+    Logger.new('/dev/null')
+  end
+
+  def assert_successful_exit(pid)
+    _, status = Process.wait2(pid)
+    assert_equal 0, status.exitstatus
+  end
+
 end
 
 class ChilloutTestException < Exception; end

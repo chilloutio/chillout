@@ -9,26 +9,21 @@ class WorkerIntegrationTest < ChilloutTestCase
     stub_request(:post, api_url('metrics')).to_return(:body => "OK", :status => 200)
   end
 
-  def silent_client
-    Chillout::Client.new(@_api_key) do |config|
-      config.logger = Logger.new('/dev/null')
-    end
-  end
-
   def test_worker_running_after_fork_on_first_use
-    client = silent_client
-    client.start_worker
-
+    client = Chillout::Client.new(@_api_key, :logger => null_logger)
     worker_check = Proc.new do
       client.enqueue(Chillout::CreationsContainer.new)
       assert client.worker_running?
     end
+
     assert_successful_exit Process.fork(&worker_check)
   end
 
-  def assert_successful_exit(pid)
-    _, status = Process.wait2(pid)
-    assert_equal 0, status.exitstatus
+  def test_worker_running_lazily
+    client = Chillout::Client.new(@_api_key, :logger => null_logger)
+    client.enqueue(Chillout::CreationsContainer.new)
+
+    assert client.worker_running?
   end
 
 end

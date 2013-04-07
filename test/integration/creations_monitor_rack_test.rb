@@ -10,8 +10,7 @@ module Chillout
       stub_api_request(api_key, "clients")
       stub_api_request(api_key, "metrics")
       @config = Chillout::Config.new(api_key)
-      @client = Chillout::Client.new(@config)
-      @client.start_worker
+      @client = Chillout::Client.new(@config, :logger => null_logger)
     end
 
     def app
