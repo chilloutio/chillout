@@ -1,9 +1,9 @@
 require "chillout/version"
 require "chillout/config"
 require "chillout/middleware/creations_monitor"
-require "chillout/server-side/dispatcher"
-require "chillout/server-side/server_side"
-require "chillout/server-side/http_client"
+require "chillout/server_side/dispatcher"
+require "chillout/server_side/server_side"
+require "chillout/server_side/http_client"
 require "chillout/client"
 
 module Chillout
