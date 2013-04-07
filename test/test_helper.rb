@@ -17,17 +17,6 @@ class ChilloutTestCase < Test::Unit::TestCase
     assert collection.include?(object), message || "#{collection.inspect} expected to include #{object.inspect}."
   end
 
-  def build_exception(klass = Exception, message = "Test Exception")
-    raise klass.new(message)
-  rescue Exception => exception
-    exception
-  end
-
-  def build_error(klass, message = "Test Error", environment = {})
-    exception = build_exception(klass, message)
-    Chillout::Error.new(exception, environment)
-  end
-
   def stub_api_request(api_key, resource_name)
     @_api_key = api_key
     stub_request(:post, api_url(resource_name))
