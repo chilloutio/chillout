@@ -15,12 +15,7 @@ And then execute:
 And configure in config/environments/production.rb:
 
 ```ruby
-config.chillout = {
-  secret: '<YOUR_SECRET>',
-  ssl: true,
-  port: 443,
-  hostname: 'api.chillout.io'
-}
+config.chillout = { secret: '<YOUR_SECRET>' }
 ```
 
 Check if everything is ok:
