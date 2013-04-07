@@ -31,10 +31,11 @@ module Chillout
       @server_side = ServerSide.new(@event_data_builder, @http_client).freeze
       @dispatcher = Dispatcher.new(@server_side).freeze
       @queue = Queue.new
+      @worker_mutex = Mutex.new
     end
 
     def enqueue(creations)
-      start_worker unless worker_running?
+      ensure_worker_running
       @logger.info "Creations were enqueued."
       @queue << creations
     end
@@ -43,6 +44,7 @@ module Chillout
       @worker_thread && @worker_thread.alive?
     end
 
+    private
     def start_worker
       @worker_thread = Thread.new do
         worker = Worker.new(@dispatcher, @queue, @logger)
@@ -50,7 +52,14 @@ module Chillout
       end
     end
 
-    private
+    def ensure_worker_running
+      return if worker_running?
+      @worker_mutex.synchronize do
+        return if worker_running?
+        start_worker
+      end
+    end
+
     def build_config(config_or_api_key, options)
       case config_or_api_key
       when Config
