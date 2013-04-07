@@ -34,12 +34,17 @@ module Chillout
     end
 
     def enqueue(creations)
+      start_worker unless worker_running?
       @logger.info "Creations were enqueued."
       @queue << creations
     end
 
+    def worker_running?
+      @worker_thread.alive?
+    end
+
     def start_worker
-      thread = Thread.new do
+      @worker_thread = Thread.new do
         worker = Worker.new(@dispatcher, @queue, @logger)
         worker.run
       end

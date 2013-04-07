@@ -16,7 +16,7 @@ module Chillout
   end
 
   class RailsInitializer
-    
+
     def initialize(rails_app, chillout_config, rails_logger)
       @rails_app = rails_app
       @chillout_config = chillout_config
