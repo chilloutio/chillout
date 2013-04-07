@@ -17,7 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "json", "~> 1.7.0"
+  gem.add_dependency 'multi_json', '~> 1.0'
+
   gem.add_development_dependency "minitest", "~>3.2.0"
   gem.add_development_dependency "rake",  "~> 0.9.2"
   gem.add_development_dependency "mocha", "0.12.8"

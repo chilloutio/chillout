@@ -24,7 +24,7 @@ class ChilloutTestCase < Test::Unit::TestCase
 
   def assert_request_body(resource_name)
     assert_requested(:post, api_url(resource_name)) do |request|
-      yield JSON.parse(request.body)
+      yield MultiJson.load(request.body)
     end
   end
 
