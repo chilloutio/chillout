@@ -10,7 +10,7 @@ class WorkerIntegrationTest < ChilloutTestCase
   end
 
   def test_worker_running_after_fork_on_first_use
-    skip('fork is not supported on this platform') unless Process.respond_to?(:fork)
+    return if RUBY_PLATFORM == 'java'
 
     client = Chillout::Client.new(@_api_key, :logger => null_logger)
     worker_check = Proc.new do
