@@ -24,12 +24,12 @@ module Chillout
     end
 
     def start
-      @rails_logger.info "[Chillout] railtie initializing"
+      @rails_logger.info "[Chillout] Railtie initializing"
       client = Client.new(@chillout_config[:secret], options)
       ActiveRecord::Base.extend(CreationListener)
-      @rails_logger.info "[Chillout] creation listener attached"
+      @rails_logger.info "[Chillout] Creation listener attached"
       @rails_app.middleware.use Middleware::CreationsMonitor, client
-      @rails_logger.info "[Chillout] creation monitor enabled"
+      @rails_logger.info "[Chillout] Creation monitor enabled"
     end
 
     def options
