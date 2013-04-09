@@ -47,8 +47,12 @@ module Chillout
     private
     def start_worker
       @worker_thread = Thread.new do
-        worker = Worker.new(@dispatcher, @queue, @logger)
-        worker.run
+        begin
+          worker = Worker.new(@dispatcher, @queue, @logger)
+          worker.run
+        ensure
+          @logger.flush
+        end
       end
     end
 

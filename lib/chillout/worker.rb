@@ -53,6 +53,7 @@ module Chillout
         containers_to_merge = get_all_containers_to_process
         creations_container = merge_containers(containers_to_merge)
         send_creations(creations_container)
+        logger.flush
         sleep 5
       end
     end
