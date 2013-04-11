@@ -14,11 +14,11 @@ And then execute:
 
     $ bundle
 
-And configure in config/environments/production.rb:
+And run Rails generator:
 
-```ruby
-config.chillout = { secret: '<YOUR_SECRET>' }
-```
+    $ rails g chillout:install EMAIL EMAIL2...
+
+And that's all! You can find whole configuration in config/environments/production.rb under ```chillout``` key.
 
 Check if everything is ok:
 
