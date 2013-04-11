@@ -13,6 +13,10 @@ module Chillout
     rake_tasks do
       load "chillout/tasks.rb"
     end
+
+    generators do
+      require "chillout/generators/install"
+    end
   end
 
   class RailsInitializer
