@@ -34,6 +34,7 @@ module Chillout
       @rails_logger.info "[Chillout] Creation listener attached"
       @rails_app.middleware.use Middleware::CreationsMonitor, client
       @rails_logger.info "[Chillout] Creation monitor enabled"
+      client.start_worker
     end
 
     def options
