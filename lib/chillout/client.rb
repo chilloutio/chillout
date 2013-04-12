@@ -35,7 +35,7 @@ module Chillout
     end
 
     def enqueue(creations)
-      ensure_worker_running
+      start_worker
       @logger.info "Creations were enqueued."
       @queue << creations
     end
@@ -44,25 +44,22 @@ module Chillout
       @worker_thread && @worker_thread.alive?
     end
 
-    private
     def start_worker
-      @worker_thread = Thread.new do
-        begin
-          worker = Worker.new(@dispatcher, @queue, @logger)
-          worker.run
-        ensure
-          @logger.flush
+      return if worker_running?
+      @worker_mutex.synchronize do
+        return if worker_running?
+        @worker_thread = Thread.new do
+          begin
+            worker = Worker.new(@dispatcher, @queue, @logger)
+            worker.run
+          ensure
+            @logger.flush
+          end
         end
       end
     end
 
-    def ensure_worker_running
-      return if worker_running?
-      @worker_mutex.synchronize do
-        return if worker_running?
-        start_worker
-      end
-    end
+    private
 
     def build_config(config_or_api_key, options)
       case config_or_api_key
