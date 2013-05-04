@@ -26,8 +26,15 @@ module Chillout
 
     def post(path, data)
       begin
-        http = Net::HTTP.new("api.chillout.io", 443)
-        http.use_ssl = true
+        host = ENV['CHILLOUT_CLIENT_HOST'] || "api.chillout.io"
+        port = ENV['CHILLOUT_CLIENT_PORT'] || 443
+        ssl = if ENV['CHILLOUT_CLIENT_SSL']
+          ENV['CHILLOUT_CLIENT_SSL'] == 'true'
+        else
+          true
+        end
+        http = Net::HTTP.new(host, port)
+        http.use_ssl = ssl
         request_spec = Net::HTTP::Post.new(path)
         request_spec.body = MultiJson.dump(data)
         request_spec.content_type = MEDIA_TYPE
