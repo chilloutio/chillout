@@ -32,5 +32,18 @@ module Chillout
         })
       end
     end
+
+    def test_customized_host_port_and_ssl
+      ENV['CHILLOUT_CLIENT_HOST'] = 'localhost'
+      ENV['CHILLOUT_CLIENT_PORT'] = '8080'
+      ENV['CHILLOUT_CLIENT_SSL'] = 'false'
+      client = PlainHttpClient.new
+      assert_equal 'localhost', client.host
+      assert_equal 8080, client.port
+      assert_equal false, client.ssl
+      ENV.delete('CHILLOUT_CLIENT_HOST')
+      ENV.delete('CHILLOUT_CLIENT_PORT')
+      ENV.delete('CHILLOUT_CLIENT_SSL')
+    end
   end
 end

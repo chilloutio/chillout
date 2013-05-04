@@ -22,17 +22,30 @@ module Chillout
       end
     end
 
+    attr_reader :host, :port, :ssl
+
+    def initialize
+      @host = if ENV['CHILLOUT_CLIENT_HOST']
+        ENV['CHILLOUT_CLIENT_HOST']
+      else
+        "api.chillout.io"
+      end
+      @port = if ENV['CHILLOUT_CLIENT_PORT']
+        ENV['CHILLOUT_CLIENT_PORT'].to_i
+      else
+        443
+      end
+      @ssl = if ENV['CHILLOUT_CLIENT_SSL']
+        ENV['CHILLOUT_CLIENT_SSL'] == 'true'
+      else
+        true
+      end
+    end
+
     MEDIA_TYPE = "application/vnd.chillout.v1+json"
 
     def post(path, data)
       begin
-        host = ENV['CHILLOUT_CLIENT_HOST'] || "api.chillout.io"
-        port = ENV['CHILLOUT_CLIENT_PORT'] || 443
-        ssl = if ENV['CHILLOUT_CLIENT_SSL']
-          ENV['CHILLOUT_CLIENT_SSL'] == 'true'
-        else
-          true
-        end
         http = Net::HTTP.new(host, port)
         http.use_ssl = ssl
         request_spec = Net::HTTP::Post.new(path)
