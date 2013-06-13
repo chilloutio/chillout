@@ -4,6 +4,8 @@
 [![Code Climate](https://codeclimate.com/github/chilloutio/chillout.png)](https://codeclimate.com/github/chilloutio/chillout)
 [![Gem Version](https://badge.fury.io/rb/chillout.png)](http://badge.fury.io/rb/chillout)
 
+Chillout gem tracks your ActiveRecord models statistics. Every morning you get report how your Rails app performed. Please visit [chillout.io](http:chillout.io) for more details.
+
 ## Installation
 
 Add this line to your Rails application's Gemfile:

@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = Chillout::VERSION
   gem.authors       = ["Michał Łomnicki", "Jan Filipowski", "Paweł Pacana"]
   gem.email         = ["michal.lomnicki@gmail.com", "jachuf@gmail.com", "pawel.pacana@gmail.com", "dev@arkency.com"]
-  gem.description   = "Chillout.io Ruby client"
+  gem.description   = "Chillout gem tracks your ActiveRecord models statistics."
   gem.summary       = "Chillout.io Ruby client"
   gem.homepage      = "http://chillout.io/"
 
