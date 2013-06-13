@@ -18,9 +18,7 @@ And then execute:
 
 And add following line to config/environments/production.rb with your own SECRET_KEY:
 
-    ```ruby
     config.chillout = { :secret => 'SECRET_KEY' }
-    ```
 
 And that's all!
 
