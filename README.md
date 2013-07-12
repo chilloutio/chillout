@@ -27,3 +27,11 @@ Check if everything is ok:
     $ RAILS_ENV=production rake chillout:check
 
 You'll see "Chillout API available" if everything is ok. Otherwise you'll be informed about problem with authorization (maybe you've put wrong secret?) or not known problems, like invalid values in configuration.
+
+## Development
+
+Running complete test suite:
+
+    bundle install
+    bundle exec rake bundle
+    bundle exec rake test

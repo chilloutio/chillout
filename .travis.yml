@@ -1,3 +1,5 @@
+before_script: bundle exec rake bundle
+script: bundle exec rake test
 language: ruby
 rvm:
   - 2.0.0-p0
