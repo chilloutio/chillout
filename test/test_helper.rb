@@ -77,8 +77,11 @@ class TestApp
   def boot
     sample_app_root = Pathname.new(File.expand_path('../support/rails_3_2_13', __FILE__))
     @pid = Process.spawn(
-      {'BUNDLE_GEMFILE' => sample_app_root.join('Gemfile').to_s},
-      Gem.ruby, sample_app_root.join('script/rails').to_s, 'server', '-e', 'production',
+      {
+        'BUNDLE_GEMFILE' => sample_app_root.join('Gemfile').to_s,
+        'RAILS_ENV' => 'production'
+      },
+      Gem.ruby, sample_app_root.join('script/rails').to_s, 'server',
       :chdir => sample_app_root.to_s
     )
     wait_until_ready
