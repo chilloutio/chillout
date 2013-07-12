@@ -84,7 +84,7 @@ class TestApp
       process.environment['BUNDLE_GEMFILE'] = sample_app_root.join('Gemfile').to_s
       process.environment['RAILS_ENV']      = 'production'
     end
-    @executor = Bbq::Spawn::CoordinatedExecutor.new(@executor, url: 'http://127.0.0.1:3000')
+    @executor = Bbq::Spawn::CoordinatedExecutor.new(@executor, :url => 'http://127.0.0.1:3000')
     @executor.start
     @executor.join
   end
