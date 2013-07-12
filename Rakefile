@@ -11,23 +11,10 @@ task :bundle do
   end
 end
 
-desc 'Run chillout unit tests.'
-Rake::TestTask.new(:unit) do |t|
+desc 'Run chillout tests.'
+Rake::TestTask.new(:test) do |t|
   t.libs    = %w(lib test)
-  t.pattern = 'test/*_test.rb'
+  t.pattern = 'test/**/*_test.rb'
 end
 
-desc 'Run chillout integration tests.'
-Rake::TestTask.new(:integration) do |t|
-  t.libs    = %w(lib test)
-  t.pattern = 'test/integration/*_test.rb'
-end
-
-desc 'Run chillout acceptance tests.'
-Rake::TestTask.new(:acceptance) do |t|
-  t.libs    = %w(lib test)
-  t.pattern = 'test/acceptance/*_test.rb'
-end
-
-task :test => %w(unit integration acceptance)
 task :default => :test
