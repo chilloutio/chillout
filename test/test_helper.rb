@@ -75,7 +75,8 @@ end
 class TestApp
 
   def boot
-    sample_app_root = Pathname.new(File.expand_path('../support/rails_3_2_13', __FILE__))
+    sample_app_name = ENV['SAMPLE_APP'] || 'rails_4_0_0'
+    sample_app_root = Pathname.new(File.expand_path('../support', __FILE__)).join(sample_app_name)
     @pid = Process.spawn(
       {
         'BUNDLE_GEMFILE' => sample_app_root.join('Gemfile').to_s,
