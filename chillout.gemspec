@@ -25,4 +25,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "contest", "~> 0.1.3"
   gem.add_development_dependency "rack-test", "~> 0.6.2"
   gem.add_development_dependency "webmock", "~> 1.8.11"
+  gem.add_development_dependency "bbq-spawn",    "0.0.3"
+  gem.add_development_dependency "childprocess", "0.3.6"
 end

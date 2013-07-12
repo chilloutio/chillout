@@ -4,6 +4,7 @@ require 'contest'
 require 'webmock/test_unit'
 require 'rack/test'
 require 'pathname'
+require 'bbq/spawn'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
@@ -77,39 +78,19 @@ class TestApp
   def boot
     sample_app_name = ENV['SAMPLE_APP'] || 'rails_4_0_0'
     sample_app_root = Pathname.new(File.expand_path('../support', __FILE__)).join(sample_app_name)
-    @pid = Process.spawn(
-      {
-        'BUNDLE_GEMFILE' => sample_app_root.join('Gemfile').to_s,
-        'RAILS_ENV' => 'production'
-      },
-      Gem.ruby, sample_app_root.join('script/rails').to_s, 'server',
-      :chdir => sample_app_root.to_s
-    )
-    wait_until_ready
+    command         = [Gem.ruby, sample_app_root.join('script/rails').to_s, 'server'].join(' ')
+    @executor = Bbq::Spawn::Executor.new(command) do |process|
+      process.cwd = sample_app_root.to_s
+      process.environment['BUNDLE_GEMFILE'] = sample_app_root.join('Gemfile').to_s
+      process.environment['RAILS_ENV']      = 'production'
+    end
+    @executor = Bbq::Spawn::CoordinatedExecutor.new(@executor, url: 'http://127.0.0.1:3000')
+    @executor.start
+    @executor.join
   end
 
   def shutdown
-    Process.kill('INT', @pid)
-  rescue Errno::ESRCH
-  ensure
-    Process.wait(@pid) rescue nil
-  end
-
-  def wait_until_ready
-    socket = nil
-    30.times do
-      begin
-        socket = TCPSocket.open('127.0.0.1', 3000)
-        break if socket
-      rescue Errno::ECONNREFUSED
-        sleep(1)
-      end
-    end
-    if socket
-      socket.close
-    else
-      raise RuntimeError.new('Could not start application')
-    end
+    @executor.stop
   end
 
 end
