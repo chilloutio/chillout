@@ -3,7 +3,7 @@ require 'test_helper'
 module Chillout
   module Middleware
     class CreationsMonitorTest < ChilloutTestCase
-      setup do
+      def setup
         @env = { 'HOST' => 'example.net' }
         @logger = stub(:info => "")
         @client = stub(:logger => @logger)
@@ -16,7 +16,6 @@ module Chillout
         end
         @middleware = CreationsMonitor.new(@app, @client)
       end
-
 
       def test_behaves_like_rack_middleware
         call_with_model_creation
