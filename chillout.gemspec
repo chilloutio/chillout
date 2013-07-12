@@ -19,12 +19,11 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'multi_json', '~> 1.4'
 
-  gem.add_development_dependency "minitest", "~>3.2.0"
-  gem.add_development_dependency "rake",  "~> 0.9.2"
-  gem.add_development_dependency "mocha", "0.12.8"
-  gem.add_development_dependency "contest", "~> 0.1.3"
-  gem.add_development_dependency "rack-test", "~> 0.6.2"
-  gem.add_development_dependency "webmock", "~> 1.8.11"
-  gem.add_development_dependency "bbq-spawn",    "0.0.3"
-  gem.add_development_dependency "childprocess", "0.3.6"
+  gem.add_development_dependency "rake"
+  gem.add_development_dependency "minitest",     "~> 4.0"
+  gem.add_development_dependency "mocha",        "~> 0.14"
+  gem.add_development_dependency "rack-test",    "~> 0.6"
+  gem.add_development_dependency "webmock",      "~> 1.13"
+  gem.add_development_dependency "bbq-spawn",    "= 0.0.3"
+  gem.add_development_dependency "childprocess", "= 0.3.6"
 end

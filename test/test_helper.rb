@@ -1,7 +1,6 @@
-require 'test/unit'
-require 'mocha'
-require 'contest'
-require 'webmock/test_unit'
+require 'minitest/autorun'
+require 'mocha/setup'
+require 'webmock/minitest'
 require 'rack/test'
 require 'pathname'
 require 'bbq/spawn'
@@ -10,11 +9,7 @@ $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
 require 'chillout'
 
-class ChilloutTestCase < Test::Unit::TestCase
-  def refute(value, message=nil)
-    assert !value, message || "Expected #{value.inspect} to be false."
-  end
-
+class ChilloutTestCase < MiniTest::Unit::TestCase
   def assert_includes(collection, object, message=nil)
     assert collection.include?(object), message || "#{collection.inspect} expected to include #{object.inspect}."
   end
@@ -49,7 +44,7 @@ class ChilloutTestCase < Test::Unit::TestCase
   end
 end
 
-class AcceptanceTestCase < Test::Unit::TestCase
+class AcceptanceTestCase < MiniTest::Unit::TestCase
 
   def setup
     WebMock.disable!
