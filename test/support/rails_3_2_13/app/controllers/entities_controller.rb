@@ -4,7 +4,7 @@ class EntitiesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @entities }
+      format.json { render :json => @entities }
     end
   end
 
@@ -13,7 +13,7 @@ class EntitiesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @entity }
+      format.json { render :json => @entity }
     end
   end
 
@@ -22,7 +22,7 @@ class EntitiesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @entity }
+      format.json { render :json => @entity }
     end
   end
 
@@ -35,11 +35,11 @@ class EntitiesController < ApplicationController
 
     respond_to do |format|
       if @entity.save
-        format.html { redirect_to @entity, notice: 'Entity was successfully created.' }
-        format.json { render json: @entity, status: :created, location: @entity }
+        format.html { redirect_to @entity, :notice => 'Entity was successfully created.' }
+        format.json { render :json => @entity, :status => :created, :location => @entity }
       else
-        format.html { render action: "new" }
-        format.json { render json: @entity.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @entity.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -49,11 +49,11 @@ class EntitiesController < ApplicationController
 
     respond_to do |format|
       if @entity.update_attributes(params[:entity])
-        format.html { redirect_to @entity, notice: 'Entity was successfully updated.' }
+        format.html { redirect_to @entity, :notice => 'Entity was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @entity.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @entity.errors, :status => :unprocessable_entity }
       end
     end
   end

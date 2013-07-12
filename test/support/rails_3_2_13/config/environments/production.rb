@@ -52,5 +52,5 @@ Rails3213::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.chillout = { secret: 'secret', ssl: false, port: 8080, hostname: 'localhost' }
+  config.chillout = { :secret => 'secret', :ssl => false, :port => 8080, :hostname => 'localhost' }
 end
