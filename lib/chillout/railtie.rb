@@ -1,4 +1,5 @@
 require 'chillout/creation_listener'
+require 'chillout/listener_injector'
 
 module Chillout
   class Railtie < Rails::Railtie
@@ -27,11 +28,12 @@ module Chillout
       @rails_logger = rails_logger
     end
 
-    def start
+    def start(listeners_injector = ListenerInjector.new)
+      listeners_injector.logger = @rails_logger
+
       @rails_logger.info "[Chillout] Railtie initializing"
       client = Client.new(@chillout_config[:secret], options)
-      ActiveRecord::Base.extend(CreationListener)
-      @rails_logger.info "[Chillout] Creation listener attached"
+      listeners_injector.inject!
       @rails_app.middleware.use Middleware::CreationsMonitor, client
       @rails_logger.info "[Chillout] Creation monitor enabled"
       client.start_worker

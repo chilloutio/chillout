@@ -62,7 +62,7 @@ class TestUser
 
   def create_entity(name)
     Net::HTTP.start('127.0.0.1', 3000) do |http|
-      http.post('/entities', "name=#{name}")
+      response = http.post('/entities', "name=#{name}")
     end
   end
 

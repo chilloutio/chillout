@@ -31,7 +31,7 @@ class EntitiesController < ApplicationController
   end
 
   def create
-    @entity = Entity.new(params[:entity])
+    @entity = Entity.new(params.require(:entity).permit!)
 
     respond_to do |format|
       if @entity.save
