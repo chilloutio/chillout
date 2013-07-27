@@ -1,0 +1,13 @@
+<h1>Entities:</h1>
+<p><%=link_to 'New Entity', new_entity_path%></p>
+<p><%= flash[:notice] %></p>
+<table>
+<%@entities.each do |entity|-%>
+  <tr>
+    <td><%=entity.name-%></td>
+    <td><%=link_to 'Edit', edit_entity_path(entity)-%>&nbsp;
+        <%=link_to 'Destroy', entity_path(entity), method: :delete,
+            data: { confirm: 'Are you sure?' } -%></td>
+  </tr>
+<%end-%>
+</table>

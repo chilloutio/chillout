@@ -1,0 +1,24 @@
+development:
+  sessions:
+    default:
+      database: mongoid_rails_development
+      hosts:
+        - localhost:27017
+
+production:
+  sessions:
+    default:
+      database: mongoid_rails_development
+      hosts:
+        - localhost:27017
+
+test:
+  sessions:
+    default:
+      database: mongoid_rails_test
+      hosts:
+        - localhost:27017
+      options:
+        consistency: :strong
+        max_retries: 1
+        retry_interval: 0
