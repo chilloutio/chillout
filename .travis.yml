@@ -29,6 +29,8 @@ matrix:
       env: SAMPLE_APP=rails_4_0_0
     - rvm: 1.8.7
       env: SAMPLE_APP=rails_3_2_14_mongo
+    - rvm: 1.9.2
+      env: SAMPLE_APP=rails_3_2_14_mongo
     - rvm: ree
       env: SAMPLE_APP=rails_3_2_14_mongo
     - rvm: jruby-18mode
