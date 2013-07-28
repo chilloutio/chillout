@@ -1,6 +1,7 @@
 before_script: bundle exec rake bundle
 script: bundle exec rake test
 language: ruby
+services: mongodb
 rvm:
   - 2.0.0-p0
   - 1.9.3
