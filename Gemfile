@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
+gem "bbq-spawn", :github => 'Killavus/bbq-spawn'
 # Specify your gem's dependencies in chillout.gemspec
-gem 'bbq-spawn', '= 0.0.3', path: '/home/killavus/Arkency/'
 gemspec
