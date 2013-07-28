@@ -76,7 +76,6 @@ class TestApp
     command         = [Gem.ruby, sample_app_root.join('script/rails').to_s, 'server'].join(' ')
     @executor = Bbq::Spawn::Executor.new(command) do |process|
       process.cwd = sample_app_root.to_s
-      process.io.inherit!
       process.environment['BUNDLE_GEMFILE'] = sample_app_root.join('Gemfile').to_s
       process.environment['RAILS_ENV']      = 'production'
     end
