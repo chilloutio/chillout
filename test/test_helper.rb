@@ -76,10 +76,11 @@ class TestApp
     command         = [Gem.ruby, sample_app_root.join('script/rails').to_s, 'server'].join(' ')
     @executor = Bbq::Spawn::Executor.new(command) do |process|
       process.cwd = sample_app_root.to_s
+      process.io.inherit!
       process.environment['BUNDLE_GEMFILE'] = sample_app_root.join('Gemfile').to_s
       process.environment['RAILS_ENV']      = 'production'
     end
-    @executor = Bbq::Spawn::CoordinatedExecutor.new(@executor, :url => 'http://127.0.0.1:3000')
+    @executor = Bbq::Spawn::CoordinatedExecutor.new(@executor, :url => 'http://127.0.0.1:3000', :strategy => Bbq::Spawn::IOStrategy::Inherit.new)
     @executor.start
     @executor.join
   end
