@@ -12,12 +12,16 @@ module Chillout
    
     private
     def creations_container
-      if @creations_container.nil?
+      if container_not_initialized?
         Thread.current[:creations] ||= CreationsContainer.new
         @creations_container = Thread.current[:creations]
       else
         @creations_container
       end
+    end
+
+    def container_not_initialized?
+      @creations_container.nil?
     end
   end
 end
