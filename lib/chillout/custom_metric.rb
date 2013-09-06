@@ -3,12 +3,7 @@ require 'chillout/creations_container'
 module Chillout
   class CustomMetric
     def initialize(creations_container = nil)
-      if creations_container.nil?
-        Thread.current[:creations] ||= CreationsContainer.new
-        @creations_container = Thread.current[:creations]
-      else
-        @creations_container = creations_container
-      end
+      @creations_container = creations_container
     end
 
     def track(name)
@@ -16,6 +11,13 @@ module Chillout
     end
    
     private
-    attr_reader :creations_container
+    def creations_container
+      if creations_container.nil?
+        Thread.current[:creations] ||= CreationsContainer.new
+        @creations_container = Thread.current[:creations]
+      else
+        @creations_container
+      end
+    end
   end
 end
