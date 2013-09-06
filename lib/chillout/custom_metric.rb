@@ -12,7 +12,7 @@ module Chillout
    
     private
     def creations_container
-      if creations_container.nil?
+      if @creations_container.nil?
         Thread.current[:creations] ||= CreationsContainer.new
         @creations_container = Thread.current[:creations]
       else
