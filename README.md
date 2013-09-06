@@ -28,6 +28,28 @@ Check if everything is ok:
 
 You'll see "Chillout API available" if everything is ok. Otherwise you'll be informed about problem with authorization (maybe you've put wrong secret?) or not known problems, like invalid values in configuration.
 
+## Usage
+
+chillout gem is automatically tracking your model creations. Remember you have to be in `production` environment - otherwise chillout gem will NOT track your metrics.
+
+### Custom metrics
+
+You can use Chillout::Metric.track('custom_name') to track a custom, phony metric. It's quite useful when you want to track a certain business process, like:
+
+```
+# in 'new':
+Chillout::Metric.track('RegistrationStarted')
+
+# in 'create':
+Chillout::Metric.track('RegistrationCompleted')
+```
+
+We encourage you to ship your own class (Adapter) which encapsulates this global constant and it's closer to your application's domain.
+
+## Compatibility
+
+Chillout gem is tested using Travis CI. You can [check it](https://travis-ci.org/chilloutio/chillout) to get insight about which versions of Rails and Rubies are actually supported. We provide listeners for ActiveRecord and Mongoid::Document persistance layers.
+
 ## Development
 
 Running complete test suite:
