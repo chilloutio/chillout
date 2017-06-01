@@ -123,7 +123,7 @@ class TestEndpoint
   end
 
   def has_received_information_about_startup
-    5.times do
+    10.times do
       begin
         return startups.pop(true)
       rescue ThreadError
@@ -134,7 +134,7 @@ class TestEndpoint
   end
 
   def has_one_creation_for_entity_resource
-    5.times do
+    10.times do
       begin
         return metrics.pop(true)
       rescue ThreadError
