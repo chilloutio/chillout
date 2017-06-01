@@ -7,7 +7,12 @@ rvm:
   - 2.3.4
   - 2.2.7
   - 2.1.10
-  - jruby-19mode
-  - rbx-19mode
 env:
   - SAMPLE_APP=rails_4_0_0
+  - SAMPLE_APP=rails_4_0_13
+matrix:
+  exclude:
+    - rvm: 2.4.1
+      env: SAMPLE_APP=rails_4_0_0
+    - rvm: 2.4.1
+      env: SAMPLE_APP=rails_4_0_13
