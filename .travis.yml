@@ -2,17 +2,20 @@ before_script: bundle exec rake bundle
 script: bundle exec rake test
 language: ruby
 rvm:
-  - 2.4.1
-  - 2.3.4
-  - 2.2.7
-  - 2.1.10
+- 2.4.1
+- 2.3.4
+- 2.2.7
+- 2.1.10
 env:
-  - SAMPLE_APP=rails_4_0_0
-  - SAMPLE_APP=rails_4_0_13
-  - SAMPLE_APP=rails_4_1_0
+- SAMPLE_APP=rails_4_0_0
+- SAMPLE_APP=rails_4_0_13
+- SAMPLE_APP=rails_4_1_0
 matrix:
   exclude:
-    - rvm: 2.4.1
-      env: SAMPLE_APP=rails_4_0_0
-    - rvm: 2.4.1
-      env: SAMPLE_APP=rails_4_0_13
+  - rvm: 2.4.1
+    env: SAMPLE_APP=rails_4_0_0
+  - rvm: 2.4.1
+    env: SAMPLE_APP=rails_4_0_13
+notifications:
+  slack:
+    secure: 6IAlvKplFv94Vaf0LES197FFIgt5cs1fUFA9820mmeoTGLDQcN+4Hpv+2/NRRqrfb2k+V+uFKmsuY8azHBoKHLIzH6d1T0NS82j54Ti+tm0iFZaKLHVp8TxuIge0/e0Niamod5mMziLTg6KcM+zNBYcoxS3th1mQNWQ2mtD9JZ8=
