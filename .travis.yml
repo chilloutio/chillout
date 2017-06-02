@@ -9,6 +9,7 @@ rvm:
 env:
   - SAMPLE_APP=rails_4_0_0
   - SAMPLE_APP=rails_4_0_13
+  - SAMPLE_APP=rails_4_1_0
 matrix:
   exclude:
     - rvm: 2.4.1
