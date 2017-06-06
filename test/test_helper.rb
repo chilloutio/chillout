@@ -31,7 +31,7 @@ class ChilloutTestCase < MiniTest::Unit::TestCase
 
   def api_url(resource_name)
     raise "API KEY not set" unless @_api_key
-    "https://#{@_api_key}:#{@_api_key}@api.chillout.io/#{resource_name}"
+    "https://api.chillout.io/#{resource_name}"
   end
 
   def null_logger
