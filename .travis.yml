@@ -13,6 +13,7 @@ env:
 - SAMPLE_APP=rails_4_1_16
 - SAMPLE_APP=rails_4_2_0
 - SAMPLE_APP=rails_4_2_8
+- SAMPLE_APP=rails_5_0_3
 matrix:
   exclude:
   - rvm: 2.4.1
@@ -27,6 +28,8 @@ matrix:
     env: SAMPLE_APP=rails_4_2_0
   - rvm: 2.1.10
     env: SAMPLE_APP=rails_4_2_8
+  - rvm: 2.1.10
+    env: SAMPLE_APP=rails_5_0_3
 notifications:
   slack:
     secure: 6IAlvKplFv94Vaf0LES197FFIgt5cs1fUFA9820mmeoTGLDQcN+4Hpv+2/NRRqrfb2k+V+uFKmsuY8azHBoKHLIzH6d1T0NS82j54Ti+tm0iFZaKLHVp8TxuIge0/e0Niamod5mMziLTg6KcM+zNBYcoxS3th1mQNWQ2mtD9JZ8=
