@@ -4,11 +4,11 @@
 [![Code Climate](https://codeclimate.com/github/chilloutio/chillout.png)](https://codeclimate.com/github/chilloutio/chillout)
 [![Gem Version](https://badge.fury.io/rb/chillout.png)](http://badge.fury.io/rb/chillout)
 
-Chillout gem tracks your ActiveRecord models statistics. Every morning you get report how your Rails app performed. Please visit [chillout.io](http:chillout.io) for more details.
+Chillout gem tracks your ActiveRecord models statistics. Every morning you get report how your Rails app performed. Please visit [chillout.io](http://get.chillout.io/) for more details.
 
 ## Installation
 
-Add this line to your Rails application's Gemfile:
+Add this line to your Rails application's `Gemfile`:
 
     gem 'chillout'
 
@@ -16,9 +16,9 @@ And then execute:
 
     $ bundle
 
-And add following line to config/environments/production.rb with your own SECRET_KEY:
+And add following line to `config/environments/production.rb` with your own `SECRET_KEY`:
 
-    config.chillout = { :secret => 'SECRET_KEY' }
+    config.chillout = { secret: 'SECRET_KEY' }
 
 And that's all!
 
@@ -34,7 +34,7 @@ chillout gem is automatically tracking your model creations. Remember you have t
 
 ### Custom metrics
 
-You can use Chillout::Metric.track('custom_name') to track a custom, phony metric. It's quite useful when you want to track a certain business process, like:
+You can use `Chillout::Metric.track('custom_name')` to track a custom, phony metric. It's quite useful when you want to track a certain business process, like:
 
 ```
 # in 'new':
