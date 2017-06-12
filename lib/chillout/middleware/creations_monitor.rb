@@ -15,7 +15,7 @@ module Chillout
         return status, headers, body
       ensure
         if Thread.current[:creations]
-          @client.logger.info "Non-empty creations container found"
+          @client.logger.debug "Non-empty creations container found"
           @client.enqueue(Thread.current[:creations])
           Thread.current[:creations] = nil
         end

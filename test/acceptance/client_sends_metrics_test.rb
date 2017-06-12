@@ -12,7 +12,8 @@ class ClientSendsMetricsTest < AcceptanceTestCase
     assert test_endpoint.has_received_information_about_startup
     test_user.create_entity('Myrmecophagidae')
     assert test_endpoint.has_one_creation_for_entity_resource
-    test_app.shutdown
+  ensure
+    test_app.shutdown if test_app
   end
 
 end

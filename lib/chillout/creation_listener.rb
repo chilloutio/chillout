@@ -11,7 +11,7 @@ module Chillout
     def listen(monitored_class)
       class_name = monitored_class.name
       monitored_class.after_commit :on => :create do
-        Rails.logger.info "[Chillout] Model created: #{class_name}"
+        Rails.logger.debug "[Chillout] Model created: #{class_name}"
         Thread.current[:creations] ||= CreationsContainer.new
         creations = Thread.current[:creations]
         creations.increment!(class_name)
@@ -28,7 +28,7 @@ module Chillout
     def listen(monitored_class)
       class_name = monitored_class.name
       monitored_class.after_create :on => :create do
-        Rails.logger.info "[Chillout] Model created: #{class_name}"
+        Rails.logger.debug "[Chillout] Model created: #{class_name}"
         Thread.current[:creations] ||= CreationsContainer.new
         creations = Thread.current[:creations]
         creations.increment!(class_name)

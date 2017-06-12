@@ -10,9 +10,9 @@ module Chillout
     end
 
     def get_all_containers_to_process
-      logger.info "Waiting for at least one container."
+      logger.debug "Waiting for at least one container."
       all_containers = [queue.pop]
-      logger.info "Received at least one container."
+      logger.debug "Received at least one container."
       loop do
         begin
           all_containers << queue.pop(true)
@@ -20,7 +20,7 @@ module Chillout
           break
         end
       end
-      logger.info "Received containers to process: #{all_containers.count}"
+      logger.debug "Received containers to process: #{all_containers.count}"
       all_containers
     end
 
@@ -33,7 +33,7 @@ module Chillout
     end
 
     def send_creations(creations_container)
-      logger.info "Trying to send creations"
+      logger.debug "Trying to send creations"
       dispatcher.send_creations(creations_container)
       logger.info "Metrics sent"
     rescue Dispatcher::SendCreationsFailed
@@ -43,7 +43,7 @@ module Chillout
 
     def send_startup_message
       dispatcher.send_startup_message
-      logger.info "Sending startup message"
+      logger.debug "Sending startup message"
     end
 
     def run

@@ -36,7 +36,7 @@ module Chillout
 
     def enqueue(creations)
       start_worker
-      @logger.info "Creations were enqueued."
+      @logger.debug "Creations were enqueued."
       @queue << creations
     end
 
