@@ -23,8 +23,9 @@ class WorkerIntegrationTest < ChilloutTestCase
 
   def test_worker_running_lazily
     client = Chillout::Client.new(@_api_key, :logger => null_logger)
-    client.enqueue(Chillout::CreationsContainer.new)
+    assert !client.worker_running?
 
+    client.enqueue(Chillout::CreationsContainer.new)
     assert client.worker_running?
   end
 

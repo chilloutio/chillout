@@ -6,7 +6,7 @@ module Chillout
       @dispatcher = stub
       @queue = stub
       @container = stub
-      @logger = stub(:info => "", :error => "")
+      @logger = stub(info: "", error:"", debug: "")
       @container_class = stub(:new => @container)
       @worker = Worker.new(@dispatcher, @queue, @logger, @container_class)
     end

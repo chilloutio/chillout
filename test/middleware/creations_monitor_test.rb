@@ -5,8 +5,8 @@ module Chillout
     class CreationsMonitorTest < ChilloutTestCase
       def setup
         @env = { 'HOST' => 'example.net' }
-        @logger = stub(:info => "")
-        @client = stub(:logger => @logger)
+        @logger = stub(info: "", debug: "")
+        @client = stub(logger: @logger)
       end
 
       def call_with_model_creation
