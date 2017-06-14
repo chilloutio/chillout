@@ -22,6 +22,7 @@ module Chillout
     attr_writer   :authentication_password
     attr_accessor :logger
     attr_accessor :ssl
+    attr_reader   :strategy
 
     def initialize(api_key = nil)
       @authentication_user = nil
@@ -34,12 +35,23 @@ module Chillout
       @version = VERSION
       @logger = Logger.new(STDOUT)
       @ssl = true
+      @strategy = :thread
     end
 
     def update(options)
       options.each do |name, value|
         send("#{name}=", value)
       end
+    end
+
+    def strategy=(name)
+      name = name.to_sym
+      precondition = {
+        active_job: -> { defined?(ActiveJob) or raise ArgumentError, "ActiveJob is not enabled" },
+        thread: -> {},
+      }.fetch(name, -> { raise ArgumentError, "unknown strategy" })
+      precondition.call
+      @strategy = name
     end
 
     def authentication_user
