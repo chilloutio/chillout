@@ -42,15 +42,7 @@ module Chillout
     end
 
     def options
-      Hash[options_list].merge(:logger => @rails_logger)
-    end
-
-    def options_list
-      existing_option_keys.map{|key| [key, @chillout_config[key]]}
-    end
-
-    def existing_option_keys
-      [:port, :hostname, :ssl].select{|key| @chillout_config.has_key?(key)}
+      {logger: @rails_logger}.merge(@chillout_config).except(:secret)
     end
 
   end
