@@ -24,6 +24,8 @@ module Chillout
     attr_accessor :ssl
 
     def initialize(api_key = nil)
+      @authentication_user = nil
+      @authentication_password = nil
       @api_key = api_key
       @hostname = DEFAULT_HOSTNAME
       @port = DEFAULT_PORT
