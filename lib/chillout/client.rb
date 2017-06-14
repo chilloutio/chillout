@@ -56,6 +56,7 @@ module Chillout
         @logger.debug "Creations were enqueued."
         @queue << creations
       when :active_job
+        @logger.debug "Creations were enqueued."
         Chillout::Job.perform_later(YAML.dump(creations))
       end
     end
