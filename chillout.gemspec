@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'multi_json', '~> 1.4'
 
   gem.add_development_dependency "rake"
-  gem.add_development_dependency "minitest",     "~> 4.0"
+  gem.add_development_dependency "minitest",     "~> 5.1"
   gem.add_development_dependency "mocha",        "~> 0.14"
   gem.add_development_dependency "rack-test",    "~> 0.6"
   gem.add_development_dependency "webmock",      "~> 2.3"
