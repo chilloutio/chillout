@@ -25,8 +25,6 @@ module Chillout
     attr_reader   :strategy
 
     def initialize(api_key = nil)
-      @authentication_user = nil
-      @authentication_password = nil
       @api_key = api_key
       @hostname = DEFAULT_HOSTNAME
       @port = DEFAULT_PORT
@@ -36,6 +34,9 @@ module Chillout
       @logger = Logger.new(STDOUT)
       @ssl = true
       @strategy = :thread
+
+      @authentication_user = nil
+      @authentication_password = nil
     end
 
     def update(options)
