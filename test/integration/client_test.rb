@@ -84,7 +84,6 @@ class ClientIntegrationTest < ChilloutTestCase
     perform_enqueued_jobs do
       assert_performed_jobs 1, only: Chillout::Job do
         client.enqueue(container)
-        puts 222
       end
     end
   end
