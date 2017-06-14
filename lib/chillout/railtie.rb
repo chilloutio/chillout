@@ -36,7 +36,7 @@ module Chillout
       listeners_injector.inject!
       @rails_app.middleware.use Middleware::CreationsMonitor, client
       @rails_logger.info "[Chillout] Creation monitor enabled"
-      client.start_worker
+      client.start
     end
 
     def options

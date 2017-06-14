@@ -30,14 +30,34 @@ module Chillout
       @event_data_builder = EventDataBuilder.new(@config).freeze
       @server_side = ServerSide.new(@event_data_builder, @http_client).freeze
       @dispatcher = Dispatcher.new(@server_side).freeze
-      @queue = Queue.new
-      @worker_mutex = Mutex.new
+      case @config.strategy
+      when :thread
+        @queue = Queue.new
+        @worker_mutex = Mutex.new
+        @worker_thread = nil
+      when :active_job
+        require 'chillout/job'
+        Chillout::Job.dispatcher = @dispatcher
+      end
+    end
+
+    def start
+      case @config.strategy
+      when :thread
+        start_worker
+      when :active_job
+      end
     end
 
     def enqueue(creations)
-      start_worker
-      @logger.debug "Creations were enqueued."
-      @queue << creations
+      case @config.strategy
+      when :thread
+        start_worker
+        @logger.debug "Creations were enqueued."
+        @queue << creations
+      when :active_job
+        Chillout::Job.perform_later(YAML.dump(creations))
+      end
     end
 
     def worker_running?

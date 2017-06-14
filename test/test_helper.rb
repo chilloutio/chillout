@@ -9,7 +9,7 @@ $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
 require 'chillout'
 
-class ChilloutTestCase < MiniTest::Unit::TestCase
+class ChilloutTestCase < Minitest::Test
   def assert_includes(collection, object, message=nil)
     assert collection.include?(object), message || "#{collection.inspect} expected to include #{object.inspect}."
   end
@@ -44,7 +44,7 @@ class ChilloutTestCase < MiniTest::Unit::TestCase
   end
 end
 
-class AcceptanceTestCase < MiniTest::Unit::TestCase
+class AcceptanceTestCase < Minitest::Test
 
   def setup
     WebMock.disable!

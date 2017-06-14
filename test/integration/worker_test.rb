@@ -20,7 +20,7 @@ class WorkerIntegrationTest < ChilloutTestCase
 
     assert_successful_exit Process.fork(&worker_check)
   end
-  
+
   def test_worker_running_lazily
     client = Chillout::Client.new(@_api_key, :logger => null_logger)
     assert !client.worker_running?

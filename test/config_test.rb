@@ -40,9 +40,11 @@ class ConfigTest < ChilloutTestCase
   end
 
   def test_can_assign_active_job_strategy
-    refute defined?(ActiveJob)
-    assert_raises(ArgumentError) do
-      @config.strategy = :active_job
+    Object.stub_remove_const(:ActiveJob) do
+      refute defined?(ActiveJob)
+      assert_raises(ArgumentError) do
+        @config.strategy = :active_job
+      end
     end
 
     Object.stub_const(:ActiveJob, :WhatEver) do
