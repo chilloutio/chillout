@@ -6,8 +6,10 @@ module Chillout
     config.chillout = ActiveSupport::OrderedOptions.new
     initializer "chillout.creations_listener_initialization" do |rails_app|
       chillout_config = rails_app.config.chillout
-      if !chillout_config.empty?
+      if chillout_config.present?
         RailsInitializer.new(rails_app, chillout_config, Rails.logger).start
+      else
+        Rails.logger.debug "[Chillout] Not enabled for #{Rails.env}"
       end
     end
 
