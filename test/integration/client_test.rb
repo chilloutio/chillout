@@ -84,8 +84,25 @@ class ClientIntegrationTest < ChilloutTestCase
     perform_enqueued_jobs do
       assert_performed_jobs 1, only: Chillout::Job do
         client.enqueue(container)
+        puts 222
       end
     end
   end
 
+  private
+
+  def self.active_job_4_test_helper?
+    instance_method(:assert_performed_jobs).arity == 1 && instance_method(:assert_enqueued_jobs).arity == 1
+  end
+
+  if active_job_4_test_helper?
+    prepend(Module.new(){
+      def assert_performed_jobs(number, only: nil, &block)
+        super(number, &block)
+      end
+      def assert_enqueued_jobs(number, only: nil, queue: nil, &block)
+        super(number, &block)
+      end
+    })
+  end
 end

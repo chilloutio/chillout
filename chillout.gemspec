@@ -23,9 +23,10 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "minitest",     "~> 5.1"
   gem.add_development_dependency "mocha",        "~> 0.14"
   gem.add_development_dependency "rack-test",    "~> 0.6"
+  gem.add_development_dependency "rack",         ">= 1.6"
   gem.add_development_dependency "webmock",      "~> 2.3"
   gem.add_development_dependency "bbq-spawn",    "= 0.0.3"
   gem.add_development_dependency "childprocess", "= 0.3.6"
   gem.add_development_dependency "minitest-stub-const", "~> 0.6"
-  gem.add_development_dependency "activejob", "~> 5.1.1"
+  gem.add_development_dependency "activejob", ">= 4.2"
 end
