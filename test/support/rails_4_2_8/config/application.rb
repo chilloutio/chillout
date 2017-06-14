@@ -27,5 +27,7 @@ module Rails400
 
     # Disable the asset pipeline.
     config.assets.enabled = false
+
+    config.active_job.queue_adapter = :async
   end
 end

@@ -9,7 +9,9 @@ class ClientSendsMetricsTest < AcceptanceTestCase
 
     test_endpoint.listen
     test_app.boot
-    assert test_endpoint.has_received_information_about_startup
+    if ENV['STRATEGY'] != 'active_job'
+      assert test_endpoint.has_received_information_about_startup
+    end
     test_user.create_entity('Myrmecophagidae')
     assert test_endpoint.has_one_creation_for_entity_resource
   ensure
