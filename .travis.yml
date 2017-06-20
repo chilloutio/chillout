@@ -43,3 +43,5 @@ matrix:
 notifications:
   slack:
     secure: 6IAlvKplFv94Vaf0LES197FFIgt5cs1fUFA9820mmeoTGLDQcN+4Hpv+2/NRRqrfb2k+V+uFKmsuY8azHBoKHLIzH6d1T0NS82j54Ti+tm0iFZaKLHVp8TxuIge0/e0Niamod5mMziLTg6KcM+zNBYcoxS3th1mQNWQ2mtD9JZ8=
+services:
+  - redis-server
