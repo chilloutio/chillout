@@ -22,7 +22,7 @@ module Chillout
 
     def send_startup_message
       @server_side.send_startup_message
-    rescue HttpClient::NotReceived => e
+    rescue HttpClient::NotReceived
     end
   end
 end
