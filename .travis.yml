@@ -14,7 +14,7 @@ env:
 - SAMPLE_APP=rails_4_2_0
 - SAMPLE_APP=rails_4_2_8
 - SAMPLE_APP=rails_5_0_3
-- SAMPLE_APP=rails_5_1_1
+- SAMPLE_APP=rails_5_1_1 SIDEKIQ_SUPPORTED=true
 matrix:
   exclude:
   - rvm: 2.4.1
@@ -32,14 +32,14 @@ matrix:
   - rvm: 2.1.10
     env: SAMPLE_APP=rails_5_0_3
   - rvm: 2.1.10
-    env: SAMPLE_APP=rails_5_1_1
+    env: SAMPLE_APP=rails_5_1_1 SIDEKIQ_SUPPORTED=true
   include:
   - rvm: 2.4.1
     env: SAMPLE_APP=rails_4_2_8 STRATEGY=active_job
   - rvm: 2.4.1
     env: SAMPLE_APP=rails_5_0_3 STRATEGY=active_job
   - rvm: 2.4.1
-    env: SAMPLE_APP=rails_5_1_1 STRATEGY=active_job
+    env: SAMPLE_APP=rails_5_1_1 STRATEGY=active_job SIDEKIQ_SUPPORTED=true
 notifications:
   slack:
     secure: 6IAlvKplFv94Vaf0LES197FFIgt5cs1fUFA9820mmeoTGLDQcN+4Hpv+2/NRRqrfb2k+V+uFKmsuY8azHBoKHLIzH6d1T0NS82j54Ti+tm0iFZaKLHVp8TxuIge0/e0Niamod5mMziLTg6KcM+zNBYcoxS3th1mQNWQ2mtD9JZ8=

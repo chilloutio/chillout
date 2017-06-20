@@ -19,4 +19,4 @@ class SidekiqWorkersSendMetricsTest < AcceptanceTestCase
     test_sidekiq_worker.shutdown if test_sidekiq_worker
   end
 
-end
+end if ENV['SIDEKIQ_SUPPORTED']
