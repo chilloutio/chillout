@@ -9,6 +9,14 @@ require "chillout/client"
 
 module Chillout
   Metric = CustomMetric.new
+
+  def self.creations
+    Thread.current[:creations]
+  end
+
+  def self.creations=(val)
+    Thread.current[:creations] = val
+  end
 end
 
 require 'chillout/railtie' if defined?(Rails)

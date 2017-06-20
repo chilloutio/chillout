@@ -29,4 +29,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "childprocess", "= 0.3.6"
   gem.add_development_dependency "minitest-stub-const", "~> 0.6"
   gem.add_development_dependency "activejob", ">= 4.2"
+  gem.add_development_dependency "sidekiq"
 end
