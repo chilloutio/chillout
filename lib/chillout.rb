@@ -1,6 +1,7 @@
 require "chillout/version"
 require "chillout/config"
 require "chillout/middleware/creations_monitor"
+require "chillout/integrations/sidekiq"
 require "chillout/server_side/dispatcher"
 require "chillout/server_side/server_side"
 require "chillout/server_side/http_client"

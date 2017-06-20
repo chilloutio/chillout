@@ -8,14 +8,12 @@ module Chillout
 
       def setup
         @client = mock("Client")
-        Sidekiq::Testing.server_middleware do |chain|
-          chain.add Chillout::Middleware::SidekiqCreationsMonitor,
-                    client: @client
-        end
+        @integration = Integrations::Sidekiq.new
+        @integration.enable(@client, ::Sidekiq::Testing)
       end
 
       def teardown
-        Sidekiq::Testing.server_middleware.clear
+        @integration.disable
       end
 
       class FakeJob
@@ -28,22 +26,17 @@ module Chillout
 
       def test_enqueues_and_clears_creations
         @client.expects(:enqueue).with(FakeJob::MOCK_CREATIONS)
-        Sidekiq::Testing.inline! do
-          FakeJob.perform_async
-        end
+        Sidekiq::Testing.inline! { FakeJob.perform_async }
         assert_nil Chillout.creations
       end
 
       class EmptyJob
         include Sidekiq::Worker
-        def perform
-        end
+        def perform; end
       end
 
       def test_does_nothing_when_no_creations
-        Sidekiq::Testing.inline! do
-          EmptyJob.perform_async
-        end
+        Sidekiq::Testing.inline! { EmptyJob.perform_async }
         assert_nil Chillout.creations
       end
 
