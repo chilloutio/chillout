@@ -90,13 +90,51 @@ class TestApp
 
 end
 
+class TestSidekiqServer
+  def boot(chillout_port:)
+    sample_app_name = ENV['SAMPLE_APP'] || 'rails_4_0_0'
+    sample_app_root = Pathname.new(File.expand_path('../support', __FILE__)).join(sample_app_name)
+    command = [
+      Gem.ruby,
+      sample_app_root.join('script/bundle').to_s,
+      'exec sidekiq'
+    ].join(' ')
+    @executor = Bbq::Spawn::Executor.new(command) do |process|
+      process.cwd = sample_app_root.to_s
+      process.environment['BUNDLE_GEMFILE'] = sample_app_root.join('Gemfile').to_s
+      process.environment['RAILS_ENV']      = 'production'
+      process.environment['CHILLOUT_PORT']  = chillout_port.to_s
+    end
+    @executor = Bbq::Spawn::CoordinatedExecutor.new(
+      @executor,
+      banner: "Starting processing, hit Ctrl-C to stop",
+      timeout: 15
+    )
+    @executor.start
+    @executor.join
+  end
+
+  def shutdown
+    @executor.stop
+  end
+
+  def push_job
+    Sidekiq::Client.push(
+      'class' => 'CreateEntityJob',
+      'queue' => 'default',
+      'args' => []
+    )
+  end
+end
+
 class TestEndpoint
 
   attr_reader :metrics, :startups
 
-  def initialize
+  def initialize(port: 8080)
     @metrics  = Queue.new
     @startups = Queue.new
+    @port = port
   end
 
   def listen
@@ -104,7 +142,7 @@ class TestEndpoint
       Rack::Server.start(
         :app  => self,
         :Host => 'localhost',
-        :Port => 8080
+        :Port => @port
       )
     end
   end

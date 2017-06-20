@@ -66,7 +66,7 @@ Rails400::Application.configure do
   config.chillout = {
     secret: 'secret',
     ssl: false,
-    port: 8080,
+    port: (ENV['CHILLOUT_PORT'] || 8080).to_i,
     hostname: 'localhost',
     strategy: (ENV['STRATEGY'] || :thread).to_sym,
   }

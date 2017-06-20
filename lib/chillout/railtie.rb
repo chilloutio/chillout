@@ -38,6 +38,8 @@ module Chillout
       listeners_injector.inject!
       @rails_app.middleware.use Middleware::CreationsMonitor, client
       @rails_logger.info "[Chillout] Creation monitor enabled"
+      sidekiq = Integrations::Sidekiq.new
+      sidekiq.enable(client) if sidekiq.available?
       client.start
     end
 
