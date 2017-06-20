@@ -4,6 +4,7 @@ require File.expand_path('../boot', __FILE__)
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
+require "active_job/railtie"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -28,6 +29,6 @@ module Rails400
     # Disable the asset pipeline.
     config.assets.enabled = false
 
-    config.active_job.queue_adapter = :async
+    config.active_job.queue_adapter = :inline
   end
 end
