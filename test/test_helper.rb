@@ -4,6 +4,7 @@ require 'webmock/minitest'
 require 'rack/test'
 require 'pathname'
 require 'bbq/spawn'
+require 'sidekiq/testing'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
@@ -119,11 +120,13 @@ class TestSidekiqServer
   end
 
   def push_job
-    Sidekiq::Client.push(
-      'class' => 'CreateEntityJob',
-      'queue' => 'default',
-      'args' => []
-    )
+    Sidekiq::Testing.disable! do
+      Sidekiq::Client.push(
+        'class' => 'CreateEntityJob',
+        'queue' => 'default',
+        'args' => []
+      )
+    end
   end
 end
 
