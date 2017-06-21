@@ -6,7 +6,12 @@ require 'chillout/version'
 Gem::Specification.new do |gem|
   gem.name          = "chillout"
   gem.version       = Chillout::VERSION
-  gem.authors       = ["Michał Łomnicki", "Jan Filipowski", "Paweł Pacana", "Robert Pankowecki"]
+  gem.authors       = [
+    "Michal Lomnicki",
+    "Jan Filipowski",
+    "Pawel Pacana",
+    "Robert Pankowecki"
+  ]
   gem.email         = [
     "michal.lomnicki@gmail.com",
     "jachuf@gmail.com",
