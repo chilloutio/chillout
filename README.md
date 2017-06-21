@@ -22,12 +22,6 @@ And add following line to `config/environments/production.rb` with your own `SEC
 
 And that's all!
 
-Check if everything is ok:
-
-    $ RAILS_ENV=production rake chillout:check
-
-You'll see "Chillout API available" if everything is ok. Otherwise you'll be informed about problem with authorization (maybe you've put wrong secret?) or not known problems, like invalid values in configuration.
-
 ## Usage
 
 chillout gem is automatically tracking your model creations. Remember you have to be in `production` environment - otherwise chillout gem will NOT track your metrics.
