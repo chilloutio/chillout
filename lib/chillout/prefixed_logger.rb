@@ -4,8 +4,6 @@ module Chillout
   class PrefixedLogger
     extend Forwardable
 
-    def_delegators :@logger, :flush
-
     attr_reader :prefix
 
     def initialize(prefix, logger)

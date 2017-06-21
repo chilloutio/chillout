@@ -70,12 +70,8 @@ module Chillout
       @worker_mutex.synchronize do
         return if worker_running?
         @worker_thread = Thread.new do
-          begin
-            worker = Worker.new(@dispatcher, @queue, @logger)
-            worker.run
-          ensure
-            @logger.flush
-          end
+          worker = Worker.new(@dispatcher, @queue, @logger)
+          worker.run
         end
       end
     end
