@@ -52,7 +52,7 @@ This feature is available since Rails 4.2
 
 ## Compatibility
 
-Chillout gem is tested using Travis CI. You can [check it](https://travis-ci.org/chilloutio/chillout) to get insight about which versions of Rails and Rubies are actually supported. We provide listeners for ActiveRecord and Mongoid::Document persistance layers.
+Chillout gem is tested using Travis CI. You can [check it](https://travis-ci.org/chilloutio/chillout) to get insight about which versions of Rails and Rubies are actually supported. We provide listeners for ActiveRecord.
 
 ## Development
 
