@@ -40,6 +40,16 @@ Chillout::Metric.track('RegistrationCompleted')
 
 We encourage you to ship your own class (Adapter) which encapsulates this global constant and it's closer to your application's domain.
 
+## Different strategy
+
+By default chillout uses a background thread to send metrics in a non-blocking way. However, if you prefer it can use `active_job` and the adapter you configured for it ie. sidekiq, resque, delayed_job, etc.
+
+```ruby
+config.chillout = {secret: 'secret', strategy: :active_job}
+```
+
+This feature is available since Rails 4.2
+
 ## Compatibility
 
 Chillout gem is tested using Travis CI. You can [check it](https://travis-ci.org/chilloutio/chillout) to get insight about which versions of Rails and Rubies are actually supported. We provide listeners for ActiveRecord and Mongoid::Document persistance layers.
