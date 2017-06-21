@@ -2,7 +2,7 @@ module Chillout
   class ListenerInjector
     attr_accessor :logger
 
-    LISTENERS = [:active_record, :mongoid]
+    LISTENERS = [:active_record]
 
     def inject!
       LISTENERS.each do |listener|
@@ -14,15 +14,6 @@ module Chillout
     def active_record_injector
       if defined?(ActiveRecord)
         ActiveRecord::Base.extend(ActiveRecordCreationListener)
-        return true
-      end
-
-      return false
-    end
-
-    def mongoid_injector
-      if defined?(Mongoid)
-        Mongoid::Document.extend(MongoidCreationListener)
         return true
       end
 
