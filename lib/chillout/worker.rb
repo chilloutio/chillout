@@ -25,19 +25,20 @@ module Chillout
     end
 
     def merge_containers(containers_to_merge)
+      mergable, unmergable = containers_to_merge.partition{|cont| @container_class === cont }
       creations_container = @container_class.new
-      for container in containers_to_merge
+      mergable.each do |container|
         creations_container.merge(container)
       end
-      creations_container
+      unmergable.unshift(creations_container) unless creations_container.empty?
+      unmergable
     end
 
-    def send_creations(creations_container)
+    def send_measurements(measurements)
       logger.debug "Trying to send creations"
-      dispatcher.send_creations(creations_container)
+      dispatcher.send_measurements(measurements)
       logger.info "Metrics sent"
     rescue Dispatcher::SendCreationsFailed
-      queue << creations_container
       logger.error "Sending metrics failed"
     end
 
@@ -51,8 +52,8 @@ module Chillout
       send_startup_message
       loop do
         containers_to_merge = get_all_containers_to_process
-        creations_container = merge_containers(containers_to_merge)
-        send_creations(creations_container)
+        measurements = merge_containers(containers_to_merge)
+        send_measurements(measurements)
         sleep 5
       end
     end

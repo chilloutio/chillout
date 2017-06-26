@@ -5,8 +5,8 @@ class Chillout::Job < ActiveJob::Base
     attr_accessor :dispatcher
   end
 
-  def perform(serialized_metrics)
-    metrics = YAML.load(serialized_metrics)
-    self.class.dispatcher.send_creations(metrics)
+  def perform(serialized_metric)
+    measurement = YAML.load(serialized_metric)
+    self.class.dispatcher.send_measurements([measurement])
   end
 end

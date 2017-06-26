@@ -7,8 +7,8 @@ module Chillout
       @server_side = server_side
     end
 
-    def send_creations(creations)
-      @server_side.send_creations(creations)
+    def send_measurements(measurements)
+      @server_side.send_measurements(measurements)
     rescue HttpClient::NotSent
       raise SendCreationsFailed.new
     end

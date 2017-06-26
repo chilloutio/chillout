@@ -31,8 +31,8 @@ module Chillout
       get "/"
       Thread.pass
       sleep 2
-      assert_equal 2, request_body["content"]["creations"]["User"]
-      assert_equal 3, request_body["content"]["creations"]["Cart"]
+      assert_equal 2, request_body["measurements"].find{|m| m["series"] == "User" }.fetch("values").fetch("creations")
+      assert_equal 3, request_body["measurements"].find{|m| m["series"] == "Cart" }.fetch("values").fetch("creations")
     end
 
     private

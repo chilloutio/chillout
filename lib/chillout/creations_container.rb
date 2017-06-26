@@ -18,6 +18,10 @@ module Chillout
       name.to_sym
     end
 
+    def each(&proc)
+      @container.each(&proc)
+    end
+
     def resource_keys
       @container.keys
     end
@@ -27,5 +31,27 @@ module Chillout
         increment!(key, other_container[key])
       end
     end
+
+    def ==(other)
+      self.class == other.class &&
+      @container == other.instance_variable_get(:@container)
+    end
+
+    def empty?
+      @container.empty?
+    end
+
+    def as_measurements(timestamp = Time.now)
+      iso_timestamp = timestamp.iso8601
+      @container.each.map do |model_name, value|
+        {
+          series: model_name.to_s,
+          tags: [],
+          timestamp: iso_timestamp,
+          values: { creations: value },
+        }
+      end
+    end
+
   end
 end

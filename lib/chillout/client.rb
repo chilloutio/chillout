@@ -3,7 +3,6 @@ require 'chillout/server_side/server_side'
 require 'chillout/server_side/http_client'
 require 'chillout/server_side/dispatcher'
 require 'chillout/config'
-require 'chillout/event_data_builder'
 require 'chillout/prefixed_logger'
 require 'chillout/worker'
 require 'chillout/check_result'
@@ -27,8 +26,7 @@ module Chillout
       @logger = PrefixedLogger.new("Chillout", @config.logger)
 
       @http_client = HttpClient.new(@config, logger).freeze
-      @event_data_builder = EventDataBuilder.new(@config).freeze
-      @server_side = ServerSide.new(@event_data_builder, @http_client).freeze
+      @server_side = ServerSide.new(@config, @http_client).freeze
       @dispatcher = Dispatcher.new(@server_side).freeze
       case @config.strategy
       when :thread
@@ -49,15 +47,15 @@ module Chillout
       end
     end
 
-    def enqueue(creations)
+    def enqueue(metrics)
       case @config.strategy
       when :thread
         start_worker
-        @logger.debug "Creations were enqueued."
-        @queue << creations
+        @queue << metrics
+        @logger.debug "Metrics were enqueued."
       when :active_job
-        @logger.debug "Creations were enqueued."
-        Chillout::Job.perform_later(YAML.dump(creations))
+        Chillout::Job.perform_later(YAML.dump(metrics))
+        @logger.debug "Metrics were enqueued."
       end
     end
 

@@ -8,16 +8,4 @@ class ServerSideTest < ChilloutTestCase
     @http_client = mock("HttpClient")
     @server_side = Chillout::ServerSide.new(@event_data_builder, @http_client)
   end
-
-  def test_send_creations_use_event_data_builder
-    @event_data_builder.expects(:build_from_creations_container).with(:creations_container, anything).returns(:event_data_from_builder)
-    @http_client.stubs(:post)
-    @server_side.send_creations(:creations_container)
-  end
-
-  def test_send_creations_use_http_client
-    @event_data_builder.stubs(:build_from_creations_container).returns(:event_data_from_builder)
-    @http_client.expects(:post).with('/metrics', :event_data_from_builder)
-    @server_side.send_creations(:creations_container)
-  end
 end

@@ -1,17 +1,22 @@
 require 'time'
-require 'chillout/event_data_builder'
 
 module Chillout
   class ServerSide
 
-    def initialize(event_data_builder, http_client)
+    def initialize(config, http_client)
       @http_client = http_client
-      @event_data_builder = event_data_builder
+      @config = config
     end
 
-    def send_creations(creations_container)
-      event_data = @event_data_builder.build_from_creations_container(creations_container, timestamp)
-      send_metric(event_data)
+    def send_measurements(measurements)
+      send_metric(
+        :measurements => measurements.map(&:as_measurements).flatten,
+        :notifier => {
+          name:    @config.notifier_name,
+          version: @config.version,
+          url:     @config.notifier_url,
+        }
+      )
     end
 
     def send_metric(data)
@@ -28,9 +33,5 @@ module Chillout
       })
     end
 
-    private
-      def timestamp
-        Time.now.iso8601
-      end
   end
 end
