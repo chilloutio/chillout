@@ -1,5 +1,10 @@
 # chillout gem changes
 
+0.8.2
+-----
+
+- Fixed chillout logging to not `#flush` which caused minor errors.
+
 0.8.1
 -----
 
