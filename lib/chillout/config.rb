@@ -23,6 +23,7 @@ module Chillout
     attr_accessor :logger
     attr_accessor :ssl
     attr_reader   :strategy
+    attr_accessor :max_queue
 
     def initialize(api_key = nil)
       @api_key = api_key
@@ -34,6 +35,7 @@ module Chillout
       @logger = Logger.new(STDOUT)
       @ssl = true
       @strategy = :thread
+      @max_queue = 5_000
 
       @authentication_user = nil
       @authentication_password = nil

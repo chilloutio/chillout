@@ -37,4 +37,17 @@ class ClientTest < ChilloutTestCase
     end
   end
 
+  def test_enqueues_up_to_5K_metrics
+    client = Chillout::Client.new("xyz")
+    client.queue.expects(:size).returns(4999)
+    client.queue.expects(:<<).returns(nil)
+    client.enqueue(Object.new)
+  end
+
+  def test_does_not_enqueue_more_than_5K_metrics
+    client = Chillout::Client.new("xyz")
+    client.queue.expects(:size).returns(5000)
+    client.queue.expects(:<<).never
+    client.enqueue(Object.new)
+  end
 end

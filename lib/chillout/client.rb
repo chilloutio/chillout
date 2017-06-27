@@ -33,6 +33,7 @@ module Chillout
         @queue = Queue.new
         @worker_mutex = Mutex.new
         @worker_thread = nil
+        @max_queue = config.max_queue
       when :active_job
         require 'chillout/job'
         Chillout::Job.dispatcher = @dispatcher
@@ -51,8 +52,12 @@ module Chillout
       case @config.strategy
       when :thread
         start_worker
-        @queue << metrics
-        @logger.debug "Metrics were enqueued."
+        if @queue.size < @max_queue
+          @queue << metrics
+          @logger.debug "Metrics were enqueued."
+        else
+          @logger.error "Metrics buffer overflow. Skipping enqueue."
+        end
       when :active_job
         Chillout::Job.perform_later(YAML.dump(metrics))
         @logger.debug "Metrics were enqueued."
