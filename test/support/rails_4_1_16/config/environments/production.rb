@@ -63,5 +63,11 @@ Rails400::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.chillout = { secret: 'secret', ssl: false, port: 8080, hostname: 'localhost' }
+  config.chillout = {
+    secret: 'secret',
+    ssl: false,
+    port: (ENV['CHILLOUT_PORT'] || 8080).to_i,
+    hostname: 'localhost',
+    strategy: (ENV['STRATEGY'] || :thread).to_sym,
+  }
 end

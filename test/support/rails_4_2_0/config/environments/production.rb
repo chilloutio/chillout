@@ -68,5 +68,6 @@ Rails400::Application.configure do
     ssl: false,
     port: (ENV['CHILLOUT_PORT'] || 8080).to_i,
     hostname: 'localhost',
+    strategy: (ENV['STRATEGY'] || :thread).to_sym,
   }
 end
