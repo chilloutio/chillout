@@ -71,7 +71,7 @@ end
 
 class TestApp
 
-  def boot
+  def boot(chillout_port:)
     sample_app_name = ENV['SAMPLE_APP'] || 'rails_4_0_0'
     sample_app_root = Pathname.new(File.expand_path('../support', __FILE__)).join(sample_app_name)
     command         = [Gem.ruby, sample_app_root.join('script/rails').to_s, 'server'].join(' ')
@@ -79,6 +79,7 @@ class TestApp
       process.cwd = sample_app_root.to_s
       process.environment['BUNDLE_GEMFILE'] = sample_app_root.join('Gemfile').to_s
       process.environment['RAILS_ENV']      = 'production'
+      process.environment['CHILLOUT_PORT']  = chillout_port.to_s
     end
     @executor = Bbq::Spawn::CoordinatedExecutor.new(@executor, :url => 'http://127.0.0.1:3000/', timeout: 15)
     @executor.start
@@ -178,6 +179,19 @@ class TestEndpoint
     10.times do
       begin
         return metrics.pop(true)
+      rescue ThreadError
+        sleep(1)
+      end
+    end
+    false
+  end
+
+  def has_one_controller_metric
+    10.times do
+      begin
+        many = metrics.pop(true)
+        metric = many["measurements"].find{|m| m["series"] == "request" }
+        return metric if metric
       rescue ThreadError
         sleep(1)
       end

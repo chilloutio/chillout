@@ -40,6 +40,7 @@ module Chillout
       @rails_logger.info "[Chillout] Creation monitor enabled"
       sidekiq = Integrations::Sidekiq.new
       sidekiq.enable(client) if sidekiq.available?
+      Subscribers::ActionControllerNotifications.new.enable(client)
       client.start
     end
 

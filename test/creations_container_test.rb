@@ -60,12 +60,12 @@ module Chillout
 
       assert_equal [{
           series: "User",
-          tags: [],
+          tags: {},
           timestamp: "2017-06-26T15:57:10Z",
           values: { creations: 5 },
         },{
           series: "Cart",
-          tags: [],
+          tags: {},
           timestamp: "2017-06-26T15:57:10Z",
           values: { creations: 3 },
         }], creations_container.as_measurements(timestamp)

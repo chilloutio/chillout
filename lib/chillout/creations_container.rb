@@ -46,7 +46,7 @@ module Chillout
       @container.each.map do |model_name, value|
         {
           series: model_name.to_s,
-          tags: [],
+          tags: {},
           timestamp: iso_timestamp,
           values: { creations: value },
         }
