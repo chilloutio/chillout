@@ -8,19 +8,22 @@ module Chillout
       @container = stub
       @logger = stub(info: "", error:"", debug: "")
       @container_class = stub(:new => @container)
-      @worker = Worker.new(@dispatcher, @queue, @logger, @container_class)
+      @max_queue = 50
+      @worker = Worker.new(@max_queue, @dispatcher, @queue, @logger, @container_class)
     end
 
     def test_get_all_containers_to_process_pops_all_existings_jobs_from_queue
       @queue.expects(:pop).times(3).returns(:container1, :container2).then.raises(ThreadError)
-      all_jobs = @worker.get_all_containers_to_process
-      assert_equal 2, all_jobs.count
-      assert_includes all_jobs, :container1
-      assert_includes all_jobs, :container2
+      assert_equal [:container1, :container2], @worker.get_all_containers_to_process
+    end
+
+    def test_does_not_pop_containers_infinitely
+      @queue.expects(:pop).returns(:bip).times(@max_queue)
+      assert_equal [:bip]*@max_queue, @worker.get_all_containers_to_process
     end
 
     def test_merge_heterogeneous_containers
-      @worker = Worker.new(@dispatcher, @queue, @logger, CreationsContainer)
+      @worker = Worker.new(@max_queue, @dispatcher, @queue, @logger, CreationsContainer)
 
       result = @worker.merge_containers([
         CreationsContainer.new.tap{|cc| cc.increment!("User", 2); },
@@ -38,7 +41,7 @@ module Chillout
     end
 
     def test_merge_homogeneous_containers
-      @worker = Worker.new(@dispatcher, @queue, @logger, CreationsContainer)
+      @worker = Worker.new(@max_queue, @dispatcher, @queue, @logger, CreationsContainer)
 
       result = @worker.merge_containers([
         CreationsContainer.new.tap{|cc| cc.increment!("User", 2); },

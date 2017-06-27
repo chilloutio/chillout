@@ -2,7 +2,8 @@ module Chillout
   class Worker
     attr_reader :dispatcher, :queue, :logger
 
-    def initialize(dispatcher, queue, logger, container_class=CreationsContainer)
+    def initialize(max_queue, dispatcher, queue, logger, container_class=CreationsContainer)
+      @max_queue = max_queue
       @dispatcher = dispatcher
       @queue = queue
       @logger = logger
@@ -13,7 +14,7 @@ module Chillout
       logger.debug "Waiting for at least one container."
       all_containers = [queue.pop]
       logger.debug "Received at least one container."
-      loop do
+      (@max_queue-1).times do
         begin
           all_containers << queue.pop(true)
         rescue ThreadError
