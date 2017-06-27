@@ -30,7 +30,7 @@ module Chillout
     def test_creations_values
       get "/"
       Thread.pass
-      sleep 2
+      sleep 3
       assert_equal 2, request_body["measurements"].find{|m| m["series"] == "User" }.fetch("values").fetch("creations")
       assert_equal 3, request_body["measurements"].find{|m| m["series"] == "Cart" }.fetch("values").fetch("creations")
     end
