@@ -14,7 +14,8 @@ class ClientSendsMetricsTest < AcceptanceTestCase
     end
     test_user.create_entity('Myrmecophagidae')
     assert creation = test_endpoint.has_one_creation_for_entity_resource
-    assert_equal "Entity", creation["measurements"][0]["series"]
+    assert_equal "Entity", creation["series"]
+    assert_equal 1, creation["values"]["creations"]
   ensure
     test_app.shutdown if test_app
   end

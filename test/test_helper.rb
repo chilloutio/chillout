@@ -178,7 +178,9 @@ class TestEndpoint
   def has_one_creation_for_entity_resource
     10.times do
       begin
-        return metrics.pop(true)
+        many = metrics.pop(true)
+        metric = many["measurements"].find{|m| m["series"] == "Entity" }
+        return metric if metric
       rescue ThreadError
         sleep(1)
       end
