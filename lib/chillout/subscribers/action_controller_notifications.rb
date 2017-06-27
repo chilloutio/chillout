@@ -4,35 +4,35 @@ module Chillout
 
       class RequestMetric
         def initialize(event)
-          @event = event
+          @end      = event.end
+          @duration = event.duration
+          @payload  = event.payload.except(:headers)
         end
 
         def as_measurements()
-          format = (event.payload[:format] || "all").to_s
+          format = (payload[:format] || "all").to_s
           format = "all" if format == "*/*"
 
           [{
              series: "request",
              tags: {
-               controller: event.payload[:controller],
-               action:     event.payload[:action],
+               controller: payload[:controller],
+               action:     payload[:action],
                format:     format,
-               method:     event.payload[:method],
-               status:     event.payload[:status],
+               method:     payload[:method],
+               status:     payload[:status],
              },
-             timestamp: event.end.iso8601,
+             timestamp: self.end.iso8601,
              values: {
                finished: 1,
-               duration: event.duration,
-               db:    event.payload[:db_runtime]   || 0,
-               view:  event.payload[:view_runtime] || 0,
+               duration: duration,
+               db:    payload[:db_runtime]   || 0,
+               view:  payload[:view_runtime] || 0,
              },
            }]
         end
 
-        private
-
-        attr_reader :event
+        attr_reader :end, :duration, :payload
       end
 
       def enable(client)
