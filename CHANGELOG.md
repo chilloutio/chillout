@@ -1,5 +1,10 @@
 # chillout gem changes
 
+0.8.4
+-----
+
+- Bugfix for [Custom metrics are not sent after 1st request](https://github.com/chilloutio/chillout/issues/4)
+
 0.8.3
 -----
 
