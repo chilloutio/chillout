@@ -1,5 +1,12 @@
 # chillout gem changes
 
+0.8.3
+-----
+
+- Introduced ActionController performance tracking.
+- Added ability to disabled automatic ActiveRecord creations tracking by passing `creations_tracking: false` via config.
+- Added ability to disabled automatic ActionController performance tracking by passing `requests_tracking: false` via config.
+
 0.8.2
 -----
 
