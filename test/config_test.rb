@@ -11,6 +11,20 @@ class ConfigTest < ChilloutTestCase
     assert_equal "xyz123", @config.api_key
   end
 
+  def test_cannot_assing_wrong_api_key
+    assert_raises(ArgumentError) do
+      @config.api_key = Object.new
+    end
+    assert_raises(ArgumentError) do
+      Chillout::Config.new(Object.new)
+    end
+  end
+
+  def test_secret_setter
+    @config.secret = "SsEeCret"
+    assert_equal "SsEeCret", @config.api_key
+  end
+
   def test_update_with_options_hash
     @config.update(:platform => 'rack')
     assert_equal 'rack', @config.platform

@@ -34,18 +34,34 @@ module Chillout
       listeners_injector.logger = @rails_logger
 
       @rails_logger.info "[Chillout] Railtie initializing"
-      client = Client.new(@chillout_config[:secret], options)
-      listeners_injector.inject!
+      config = build_config(options)
+      client = Client.new(config)
+      if config.creations_tracking
+        listeners_injector.inject!
+        @rails_logger.info "[Chillout] Creation monitor enabled"
+      end
       @rails_app.middleware.use Middleware::CreationsMonitor, client
-      @rails_logger.info "[Chillout] Creation monitor enabled"
+
       sidekiq = Integrations::Sidekiq.new
       sidekiq.enable(client) if sidekiq.available?
-      Subscribers::ActionControllerNotifications.new.enable(client)
+
+      if config.requests_tracking
+        @rails_logger.info "[Chillout] Requests monitor enabled"
+        Subscribers::ActionControllerNotifications.new.enable(client)
+      end
       client.start
     end
 
+    private
+
     def options
-      {logger: @rails_logger}.merge(@chillout_config).except(:secret)
+      {logger: @rails_logger}.merge(@chillout_config)
+    end
+
+    def build_config(options)
+      config = Config.new
+      config.update(options)
+      config
     end
 
   end

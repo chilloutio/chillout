@@ -17,16 +17,18 @@ module Chillout
     attr_accessor :platform
     attr_accessor :hostname
     attr_accessor :port
-    attr_accessor :api_key
+    attr_reader   :api_key
     attr_writer   :authentication_user
     attr_writer   :authentication_password
     attr_accessor :logger
     attr_accessor :ssl
     attr_reader   :strategy
     attr_accessor :max_queue
+    attr_accessor :creations_tracking
+    attr_accessor :requests_tracking
 
-    def initialize(api_key = nil)
-      @api_key = api_key
+    def initialize(api_key = '')
+      self.api_key = api_key
       @hostname = DEFAULT_HOSTNAME
       @port = DEFAULT_PORT
       @notifier_name = DEFAULT_NOTIFIER_NAME
@@ -36,6 +38,8 @@ module Chillout
       @ssl = true
       @strategy = :thread
       @max_queue = 5_000
+      @creations_tracking = true
+      @requests_tracking = true
 
       @authentication_user = nil
       @authentication_password = nil
@@ -45,6 +49,18 @@ module Chillout
       options.each do |name, value|
         send("#{name}=", value)
       end
+    end
+
+    def api_key=(value)
+      if String === value
+        @api_key = value
+      else
+        raise ArgumentError.new("Invalid config passed")
+      end
+    end
+
+    def secret=(value)
+      self.api_key = value
     end
 
     def strategy=(name)
