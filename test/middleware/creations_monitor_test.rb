@@ -11,7 +11,7 @@ module Chillout
 
       def call_with_model_creation
         @app = lambda do |env|
-          Thread.current[:creations] = :creations
+          Chillout.creations = :creations
           [200, env, ['hello']]
         end
         @middleware = CreationsMonitor.new(@app, @client)

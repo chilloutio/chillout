@@ -9,8 +9,7 @@ module Chillout
       def call(_worker, _job, _queue)
         yield
       ensure
-        if Chillout.creations
-          creations = Chillout.creations
+        if creations = Chillout.creations
           Chillout.creations = nil
           @client.enqueue(creations)
         end

@@ -14,10 +14,10 @@ module Chillout
         status, headers, body = @app.call(env)
         return status, headers, body
       ensure
-        if Thread.current[:creations]
+        if creations = Chillout.creations
           @client.logger.debug "Non-empty creations container found"
-          @client.enqueue(Thread.current[:creations])
-          Thread.current[:creations] = nil
+          @client.enqueue(creations)
+          Chillout.creations = nil
         end
 
         body.close if body && body.respond_to?(:close) && $!

@@ -16,9 +16,9 @@ module Chillout
     def app
       client = @client
       deepest_level = lambda do |env|
-        Thread.current[:creations] = CreationsContainer.new
-        2.times { Thread.current[:creations].increment!("User") }
-        3.times { Thread.current[:creations].increment!("Cart") }
+        Chillout.creations = CreationsContainer.new
+        Chillout.creations.increment!("User", 2)
+        Chillout.creations.increment!("Cart",3 )
         [200, env, ['hello']]
       end
       Rack::Builder.new do
