@@ -1,5 +1,10 @@
 # chillout gem changes
 
+0.8.5
+-----
+
+- Bugfix: Duration metrics are always sent as floats.
+
 0.8.4
 -----
 
