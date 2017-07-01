@@ -25,9 +25,9 @@ module Chillout
              timestamp: self.end.iso8601,
              values: {
                finished: 1,
-               duration: duration,
-               db:    payload[:db_runtime]   || 0,
-               view:  payload[:view_runtime] || 0,
+               duration: duration.to_f,
+               db:    (payload[:db_runtime]   || 0).to_f,
+               view:  (payload[:view_runtime] || 0).to_f,
              },
            }]
         end

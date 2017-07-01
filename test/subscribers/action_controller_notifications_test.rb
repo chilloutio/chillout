@@ -43,6 +43,29 @@ module Chillout
           },
         }], metric.as_measurements
       end
+
+      def test_measurements_are_floats
+        time = Time.utc(2017, 6, 27, 10, 26, 33)
+        metric = ActionControllerNotifications::RequestMetric.new(
+          ActiveSupport::Notifications::Event.new(
+            "asd", time, time, "uniq", {
+            controller: "PostsController",
+            action: "index",
+            params: {"action" => "index", "controller" => "posts"},
+            headers: nil, #ActionDispatch::Http::Headers.new,
+            format: :html,
+            method: "GET",
+            path: "/posts",
+            status: 200,
+            view_runtime: 46,
+            db_runtime: 1,
+          }
+        ))
+        values = metric.as_measurements[0].fetch(:values)
+        assert  0.0.eql? values.fetch(:duration)
+        assert  1.0.eql? values.fetch(:db)
+        assert 46.0.eql? values.fetch(:view)
+      end
     end
   end
 end
