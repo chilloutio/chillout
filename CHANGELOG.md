@@ -1,5 +1,10 @@
 # chillout gem changes
 
+0.8.6
+-----
+
+- Introduced custom advanced metrics.
+
 0.8.5
 -----
 

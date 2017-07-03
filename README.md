@@ -42,7 +42,7 @@ We encourage you to ship your own class (Adapter) which encapsulates this global
 
 ### Advanced custom metrics
 
-For more advanced tracking which supports multiple values, tags and custom timestamps use `Chillout::Metric.push`:
+For more advanced tracking which supports multiple values, multiple tags and custom timestamps use `Chillout::Metric.push`:
 
 ```ruby
 Chillout::Metric.push(
