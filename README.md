@@ -28,9 +28,9 @@ chillout gem is automatically tracking your model creations. Remember you have t
 
 ### Custom metrics
 
-You can use `Chillout::Metric.track('custom_name')` to track a custom, phony metric. It's quite useful when you want to track a certain business process, like:
+You can use `Chillout::Metric.track('custom_name')` to track a custom metric. It's quite useful when you want to track a certain business process, like:
 
-```
+```ruby
 # in 'new':
 Chillout::Metric.track('RegistrationStarted')
 
@@ -39,6 +39,26 @@ Chillout::Metric.track('RegistrationCompleted')
 ```
 
 We encourage you to ship your own class (Adapter) which encapsulates this global constant and it's closer to your application's domain.
+
+### Advanced custom metrics
+
+For more advanced tracking which supports multiple values, tags and custom timestamps use `Chillout::Metric.push`:
+
+```ruby
+Chillout::Metric.push(
+  series: "purchases",
+  tags: {
+    country: "USA",
+    terminal: "KATE-123",
+  },
+  timestamp: Time.now.utc,
+  values: {
+    number_of_products: 4,
+    total_amount: 55.70,
+    tax: 5.70,
+  },
+)
+```
 
 ## Different strategy
 
