@@ -60,6 +60,10 @@ Chillout::Metric.push(
 )
 ```
 
+* `tags`, `timestamp` and `values` are optional.
+* Tag keys and values should be strings (or symbols).
+* Make sure that given values types are consistent. Avoid sending `total_amount: 55.70` in one metric and `total_amount: 60` in another. Always convert to same class such as Float, Integer or String.
+
 ## Different strategy
 
 By default chillout uses a background thread to send metrics in a non-blocking way. However, if you prefer it can use `active_job` and the adapter you configured for it ie. sidekiq, resque, delayed_job, etc.
