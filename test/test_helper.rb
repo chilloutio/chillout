@@ -67,6 +67,12 @@ class TestUser
     end
   end
 
+  def purchase
+    Net::HTTP.start('127.0.0.1', 3000) do |http|
+      http.post('/purchases', "")
+    end
+  end
+
 end
 
 class TestApp
@@ -180,6 +186,19 @@ class TestEndpoint
       begin
         many = metrics.pop(true)
         metric = many["measurements"].find{|m| m["series"] == "Entity" }
+        return metric if metric
+      rescue ThreadError
+        sleep(1)
+      end
+    end
+    false
+  end
+
+  def has_one_purchase
+    10.times do
+      begin
+        many = metrics.pop(true)
+        metric = many["measurements"].find{|m| m["series"] == "purchases" }
         return metric if metric
       rescue ThreadError
         sleep(1)

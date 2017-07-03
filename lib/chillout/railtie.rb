@@ -50,6 +50,7 @@ module Chillout
         Subscribers::ActionControllerNotifications.new.enable(client)
       end
       client.start
+      Chillout.client = client
     end
 
     private

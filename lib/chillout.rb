@@ -1,6 +1,7 @@
 require "chillout/version"
 require "chillout/config"
 require "chillout/creations_container"
+require "chillout/custom_advanced_metric"
 require "chillout/middleware/creations_monitor"
 require "chillout/integrations/sidekiq"
 require "chillout/subscribers/action_controller_notifications"
@@ -15,6 +16,15 @@ module Chillout
       Chillout.creations ||= CreationsContainer.new
       Chillout.creations.increment!(name)
     end
+
+    def self.push(series:, tags:{}, timestamp: Time.now.utc, values: {value: 1.0})
+      Chillout.client.enqueue(CustomAdvancedMetric.new(
+        series: series,
+        tags: tags,
+        timestamp: timestamp,
+        values: values
+      ))
+    end
   end
 
   def self.creations
@@ -23,6 +33,14 @@ module Chillout
 
   def self.creations=(val)
     Thread.current[:creations] = val
+  end
+
+  def self.client=(client)
+    @client = client
+  end
+
+  def self.client
+    @client
   end
 end
 
