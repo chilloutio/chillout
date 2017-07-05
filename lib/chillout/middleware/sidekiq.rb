@@ -1,6 +1,10 @@
 module Chillout
   module Middleware
+
     class SidekiqJobMeasurement
+      attr_reader :retriable, :queue, :started,
+        :finished, :delay, :duration, :success
+
       def initialize(job, queue, started, finished, success)
         @class     = job["class"].to_s
         @retriable = job["retry"].to_s
@@ -11,6 +15,10 @@ module Chillout
         @delay = 1000.0 * (@finished.to_f - enqueued_at)
         @duration = 1000.0 * (@finished.to_f - @started.to_f)
         @success = success.to_s
+      end
+
+      def job_class
+        @class
       end
 
       def as_measurements()

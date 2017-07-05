@@ -24,10 +24,12 @@ module Chillout
         end
       end
 
-      def test_enqueues_and_clears_creations
+      def test_enqueues_stats_and_clears_creations
         @client.expects(:enqueue).with(FakeJob::MOCK_CREATIONS)
         @client.expects(:enqueue).with do |measurement|
-          SidekiqJobMeasurement === measurement
+          SidekiqJobMeasurement === measurement &&
+            measurement.success == "true" &&
+            measurement.job_class == "Chillout::Middleware::SidekiqTest::FakeJob"
         end
         Sidekiq::Testing.inline! { FakeJob.perform_async }
         assert_nil Chillout.creations
@@ -57,7 +59,7 @@ module Chillout
       def test_enqueues_stats_even_on_failure
         @client.expects(:enqueue).with do |measurement|
           SidekiqJobMeasurement === measurement &&
-
+            measurement.success == "false"
         end
         Sidekiq::Testing.inline! do
           assert_raises(ErrorJob::Doh) do
