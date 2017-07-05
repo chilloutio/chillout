@@ -26,6 +26,9 @@ module Chillout
 
       def test_enqueues_and_clears_creations
         @client.expects(:enqueue).with(FakeJob::MOCK_CREATIONS)
+        @client.expects(:enqueue).with do |measurement|
+          SidekiqJobMeasurement === measurement
+        end
         Sidekiq::Testing.inline! { FakeJob.perform_async }
         assert_nil Chillout.creations
       end
@@ -35,8 +38,32 @@ module Chillout
         def perform; end
       end
 
-      def test_does_nothing_when_no_creations
+      def test_enqueues_stats_only_when_no_creations
+        @client.expects(:enqueue).with do |measurement|
+          SidekiqJobMeasurement === measurement
+        end
         Sidekiq::Testing.inline! { EmptyJob.perform_async }
+        assert_nil Chillout.creations
+      end
+
+      class ErrorJob
+        Doh = Class.new(StandardError)
+        include Sidekiq::Worker
+        def perform
+          raise Doh
+        end
+      end
+
+      def test_enqueues_stats_even_on_failure
+        @client.expects(:enqueue).with do |measurement|
+          SidekiqJobMeasurement === measurement &&
+
+        end
+        Sidekiq::Testing.inline! do
+          assert_raises(ErrorJob::Doh) do
+            ErrorJob.perform_async
+          end
+        end
         assert_nil Chillout.creations
       end
 

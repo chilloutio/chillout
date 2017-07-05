@@ -5,6 +5,7 @@ require 'rack/test'
 require 'pathname'
 require 'bbq/spawn'
 require 'sidekiq/testing'
+require 'sidekiq/api'
 
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
@@ -135,6 +136,12 @@ class TestSidekiqServer
       )
     end
   end
+
+  def clear_jobs
+    Sidekiq::Testing.disable! do
+      Sidekiq::Queue.new.💣
+    end
+  end
 end
 
 class TestEndpoint
@@ -145,6 +152,7 @@ class TestEndpoint
     @metrics  = Queue.new
     @startups = Queue.new
     @port = port
+    @all_metrics = []
   end
 
   def listen
@@ -182,36 +190,33 @@ class TestEndpoint
   end
 
   def has_one_creation_for_entity_resource
-    10.times do
-      begin
-        many = metrics.pop(true)
-        metric = many["measurements"].find{|m| m["series"] == "Entity" }
-        return metric if metric
-      rescue ThreadError
-        sleep(1)
-      end
-    end
-    false
+    look_for_series("Entity")
   end
 
   def has_one_purchase
-    10.times do
-      begin
-        many = metrics.pop(true)
-        metric = many["measurements"].find{|m| m["series"] == "purchases" }
-        return metric if metric
-      rescue ThreadError
-        sleep(1)
-      end
-    end
-    false
+    look_for_series("purchase")
   end
 
   def has_one_controller_metric
+    look_for_series("request")
+  end
+
+  def has_one_sidekiq_metric
+    look_for_series("sidekiq_jobs")
+  end
+
+  private
+
+  def look_for(&search)
     10.times do
       begin
+        metric = @all_metrics.find(&search)
+        return metric if metric
+
         many = metrics.pop(true)
-        metric = many["measurements"].find{|m| m["series"] == "request" }
+        @all_metrics.concat(many["measurements"])
+
+        metric = @all_metrics.find(&search)
         return metric if metric
       rescue ThreadError
         sleep(1)
@@ -220,5 +225,8 @@ class TestEndpoint
     false
   end
 
-end
+  def look_for_series(series)
+    look_for{|m| m["series"] == series }
+  end
 
+end
