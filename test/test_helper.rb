@@ -194,7 +194,7 @@ class TestEndpoint
   end
 
   def has_one_purchase
-    look_for_series("purchase")
+    look_for_series("purchases")
   end
 
   def has_one_controller_metric
