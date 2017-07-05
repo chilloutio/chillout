@@ -1,5 +1,11 @@
 # chillout gem changes
 
+Unreleased
+----------
+
+- Introduced sidekiq jobs monitoring.
+
+
 0.8.6
 -----
 
