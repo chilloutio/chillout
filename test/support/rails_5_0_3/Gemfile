@@ -3,4 +3,4 @@ source 'https://rubygems.org'
 gem 'rails', '5.0.3'
 gem 'sqlite3'
 gem 'chillout', :path => '../../../'
-gem 'sidekiq'
+gem "sidekiq", ENV['SIDEKIQ_VERSION'] || ">= 5"
