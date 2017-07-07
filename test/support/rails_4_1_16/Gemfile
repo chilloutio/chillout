@@ -6,5 +6,5 @@ gem 'chillout', :path => '../../../'
 if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.2')
   gem "sidekiq", ENV['SIDEKIQ_VERSION'] || "~> 4.2"
 else
-  gem 'sidekiq'
+  gem "sidekiq", ENV['SIDEKIQ_VERSION'] || ">= 5"
 end
