@@ -4,12 +4,21 @@ require 'chillout/listener_injector'
 module Chillout
   class Railtie < Rails::Railtie
     config.chillout = ActiveSupport::OrderedOptions.new
+    chillout_init = nil
+
     initializer "chillout.creations_listener_initialization" do |rails_app|
       chillout_config = rails_app.config.chillout
       if chillout_config.present?
-        RailsInitializer.new(rails_app, chillout_config, Rails.logger).start
+        chillout_init = RailsInitializer.new(rails_app, chillout_config, Rails.logger)
+        chillout_init.start
       else
         Rails.logger.debug "[Chillout] Not enabled for #{Rails.env}"
+      end
+    end
+
+    initializer "chillout.after_eager_load", after: :eager_load! do
+      if chillout_init
+        chillout_init.after_eager_load
       end
     end
 
@@ -51,6 +60,11 @@ module Chillout
       end
       client.start
       Chillout.client = client
+    end
+
+    def after_eager_load
+      state_machine = Integrations::StateMachine.new
+      state_machine.enable(Chillout.client) if state_machine.available?
     end
 
     private

@@ -68,6 +68,12 @@ class TestUser
     end
   end
 
+  def transition_entity(name)
+    Net::HTTP.start('127.0.0.1', 3000) do |http|
+      http.post('/transitions', "entity[name]=#{name}")
+    end
+  end
+
   def purchase
     Net::HTTP.start('127.0.0.1', 3000) do |http|
       http.post('/purchases', "")
@@ -156,7 +162,7 @@ class TestEndpoint
   end
 
   def listen
-    Thread.new do
+    @thread = Thread.new do
       Rack::Server.start(
         :app  => self,
         :Host => 'localhost',
@@ -205,19 +211,29 @@ class TestEndpoint
     look_for_series("sidekiq_jobs")
   end
 
+  def has_one_state_machine_metric
+    look_for_series("Entity#state")
+  end
+
   private
 
   def look_for(&search)
     10.times do
       begin
         metric = @all_metrics.find(&search)
-        return metric if metric
+        if metric
+          @all_metrics.delete(metric)
+          return metric
+        end
 
         many = metrics.pop(true)
         @all_metrics.concat(many["measurements"])
 
         metric = @all_metrics.find(&search)
-        return metric if metric
+        if metric
+          @all_metrics.delete(metric)
+          return metric
+        end
       rescue ThreadError
         sleep(1)
       end

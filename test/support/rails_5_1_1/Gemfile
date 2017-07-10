@@ -4,3 +4,4 @@ gem 'rails', '5.1.1'
 gem 'sqlite3'
 gem 'chillout', :path => '../../../'
 gem "sidekiq", ENV['SIDEKIQ_VERSION'] || ">= 5"
+gem "state_machine", ENV['STATE_MACHINE_VERSION'] || ">= 1.2"
