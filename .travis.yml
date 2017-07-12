@@ -44,6 +44,8 @@ matrix:
     env: SAMPLE_APP=rails_5_0_3 STRATEGY=active_job SIDEKIQ_SUPPORTED=true
   - rvm: 2.4.1
     env: SAMPLE_APP=rails_5_1_1 STRATEGY=active_job SIDEKIQ_SUPPORTED=true STATE_MACHINE_SUPPORTED=true
+  - rvm: 2.4.1
+    env: SAMPLE_APP=rails_5_1_1 STATE_MACHINE_SUPPORTED=true STATE_MACHINE_VERSION=1.1.2
 notifications:
   slack:
     secure: 6IAlvKplFv94Vaf0LES197FFIgt5cs1fUFA9820mmeoTGLDQcN+4Hpv+2/NRRqrfb2k+V+uFKmsuY8azHBoKHLIzH6d1T0NS82j54Ti+tm0iFZaKLHVp8TxuIge0/e0Niamod5mMziLTg6KcM+zNBYcoxS3th1mQNWQ2mtD9JZ8=
