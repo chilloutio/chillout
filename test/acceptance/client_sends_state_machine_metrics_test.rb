@@ -42,4 +42,4 @@ class ClientSendsStateMachineMetrics < AcceptanceTestCase
     test_app.shutdown if test_app
   end
 
-end if ENV['STATE_MACHINE_SUPPORTED']
+end
