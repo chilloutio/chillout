@@ -45,7 +45,7 @@ module Chillout
       def available?
         if defined?(::StateMachine) && defined?(::ActiveRecord)
           require 'state_machine/version'
-          Gem::Version.new(StateMachine::VERSION) >= Gem::Version.new('1.1.2')
+          Gem::Version.new(::StateMachine::VERSION) >= Gem::Version.new('1.1.2')
         end
       rescue
         false
