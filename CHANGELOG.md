@@ -1,5 +1,10 @@
 # chillout gem changes
 
+0.8.8
+-----
+
+- Introduced state_machine transitions monitoring.
+
 0.8.7
 -----
 
