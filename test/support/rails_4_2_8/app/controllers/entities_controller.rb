@@ -31,7 +31,7 @@ class EntitiesController < ApplicationController
   end
 
   def create
-    @entity = Entity.new(params.require(:entity).permit!)
+    @entity = Entity.new(params.require(:entity).permit!.merge(state: "parked"))
 
     respond_to do |format|
       if @entity.save
