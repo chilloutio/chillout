@@ -4,4 +4,9 @@ gem 'rails', '5.1.1'
 gem 'sqlite3'
 gem 'chillout', :path => '../../../'
 gem "sidekiq", ENV['SIDEKIQ_VERSION'] || ">= 5"
-gem "state_machine", ENV['STATE_MACHINE_VERSION'] || ">= 1.2"
+
+if ENV['STATE_MACHINES_ACTIVERECORD_VERSION']
+  gem "state_machines-activerecord", ENV['STATE_MACHINES_ACTIVERECORD_VERSION']
+else
+  gem "state_machine", ENV['STATE_MACHINE_VERSION'] || ">= 1.2"
+end

@@ -43,21 +43,25 @@ module Chillout
     class StateMachine
 
       def available?
+        if defined?(::StateMachines::Integrations::ActiveRecord::VERSION) && defined?(::ActiveRecord)
+          return Gem::Version.new(::StateMachines::Integrations::ActiveRecord::VERSION) >= Gem::Version.new('0.5.0')
+        end
         if defined?(::StateMachine) && defined?(::ActiveRecord)
           require 'state_machine/version'
-          Gem::Version.new(::StateMachine::VERSION) >= Gem::Version.new('1.1.2')
+          return Gem::Version.new(::StateMachine::VERSION) >= Gem::Version.new('1.1.2')
         end
       rescue
         false
       end
 
       def enable(client)
+        callback_class = defined?(::StateMachine::Callback) ? ::StateMachine::Callback : ::StateMachines::Callback
         ActiveRecord::Base.subclasses.select do |klass|
           klass.respond_to?(:state_machines)
         end.each do |klass|
           klass.state_machines.each_value do |state_machine|
             state_machine.callbacks[:before].unshift(
-              ::StateMachine::Callback.new(:around, &callback(client))
+              callback_class.new(:around, &callback(client))
             )
           end
         end
