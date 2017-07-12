@@ -43,8 +43,12 @@ module Chillout
     class StateMachine
 
       def available?
-        defined?(::StateMachine) &&
-        defined?(::ActiveRecord)
+        if defined?(::StateMachine) && defined?(::ActiveRecord)
+          require 'state_machine/version'
+          Gem::Version.new(StateMachine::VERSION) >= Gem::Version.new('1.1.2')
+        end
+      rescue
+        false
       end
 
       def enable(client)
