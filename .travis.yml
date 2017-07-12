@@ -48,6 +48,8 @@ matrix:
     env: SAMPLE_APP=rails_4_0_0 STATE_MACHINE_VERSION=1.1.2
   - rvm: 2.4.1
     env: SAMPLE_APP=rails_5_1_1 STATE_MACHINES_ACTIVERECORD_VERSION=">=0.5"
+  - rvm: 2.4.1
+    env: SAMPLE_APP=rails_5_0_3 STATE_MACHINES_ACTIVERECORD_VERSION=0.4
 notifications:
   slack:
     secure: 6IAlvKplFv94Vaf0LES197FFIgt5cs1fUFA9820mmeoTGLDQcN+4Hpv+2/NRRqrfb2k+V+uFKmsuY8azHBoKHLIzH6d1T0NS82j54Ti+tm0iFZaKLHVp8TxuIge0/e0Niamod5mMziLTg6KcM+zNBYcoxS3th1mQNWQ2mtD9JZ8=
