@@ -1,5 +1,10 @@
 # chillout gem changes
 
+0.8.9
+-----
+
+- Bugfix for [Exception when using has_and_belongs_to_many](https://github.com/chilloutio/chillout/issues/5)
+
 0.8.8
 -----
 
