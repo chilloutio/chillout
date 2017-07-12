@@ -3,7 +3,7 @@
 0.8.8
 -----
 
-- Introduced state_machine transitions monitoring.
+- Introduced `state_machine` / `state_machines-activerecord` transitions monitoring.
 
 0.8.7
 -----
