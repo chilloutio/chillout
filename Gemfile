@@ -13,7 +13,7 @@ else
   gem "sidekiq", ENV['SIDEKIQ_VERSION'] || ">= 5"
 end
 
-if ENV['SAMPLE_APP']
+if ENV['TEST_AR']
   gem "activerecord", ENV['SAMPLE_APP'].
     split("_").
     select{|t| Integer(t) rescue nil }.

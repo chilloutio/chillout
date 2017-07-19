@@ -13,8 +13,8 @@ env:
 - SAMPLE_APP=rails_4_1_16 SIDEKIQ_SUPPORTED=true
 - SAMPLE_APP=rails_4_2_0 SIDEKIQ_SUPPORTED=true
 - SAMPLE_APP=rails_4_2_8 SIDEKIQ_SUPPORTED=true
-- SAMPLE_APP=rails_5_0_3 SIDEKIQ_SUPPORTED=true
-- SAMPLE_APP=rails_5_1_1 SIDEKIQ_SUPPORTED=true
+- SAMPLE_APP=rails_5_0_3 SIDEKIQ_SUPPORTED=true TEST_AR=true
+- SAMPLE_APP=rails_5_1_1 SIDEKIQ_SUPPORTED=true TEST_AR=true
 matrix:
   exclude:
   - rvm: 2.4.1
@@ -30,9 +30,9 @@ matrix:
   - rvm: 2.1.10
     env: SAMPLE_APP=rails_4_2_8 SIDEKIQ_SUPPORTED=true
   - rvm: 2.1.10
-    env: SAMPLE_APP=rails_5_0_3 SIDEKIQ_SUPPORTED=true
+    env: SAMPLE_APP=rails_5_0_3 SIDEKIQ_SUPPORTED=true TEST_AR=true
   - rvm: 2.1.10
-    env: SAMPLE_APP=rails_5_1_1 SIDEKIQ_SUPPORTED=true
+    env: SAMPLE_APP=rails_5_1_1 SIDEKIQ_SUPPORTED=true TEST_AR=true
   include:
   - rvm: 2.1.10
     env: SIDEKIQ_VERSION=3.5.3 SAMPLE_APP=rails_4_1_16 SIDEKIQ_SUPPORTED=true

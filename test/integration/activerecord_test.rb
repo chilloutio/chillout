@@ -1,9 +1,11 @@
-require 'test_helper'
-require 'chillout/creation_listener'
-require 'chillout/listener_injector'
-require 'active_record'
-require 'logger'
-require 'minitest/stub_const'
+if ENV['TEST_AR']
+  require 'test_helper'
+  require 'chillout/creation_listener'
+  require 'chillout/listener_injector'
+  require 'active_record'
+  require 'logger'
+  require 'minitest/stub_const'
+end
 
 module Chillout
   class WorkerIntegrationTest < ChilloutTestCase
@@ -52,4 +54,4 @@ module Chillout
       assert_equal 1, Chillout.creations.size
     end
   end
-end
+end if ENV['TEST_AR']
