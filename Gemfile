@@ -12,3 +12,11 @@ if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.2')
 else
   gem "sidekiq", ENV['SIDEKIQ_VERSION'] || ">= 5"
 end
+
+if ENV['SAMPLE_APP']
+  gem "activerecord", ENV['SAMPLE_APP'].
+    split("_").
+    select{|t| Integer(t) rescue nil }.
+    take(3).
+    join(".")
+end

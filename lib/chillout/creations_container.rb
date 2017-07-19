@@ -41,6 +41,10 @@ module Chillout
       @container.empty?
     end
 
+    def size
+      @container.size
+    end
+
     def as_measurements(timestamp = Time.now)
       iso_timestamp = timestamp.iso8601
       @container.each.map do |model_name, value|

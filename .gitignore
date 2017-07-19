@@ -17,5 +17,6 @@ test/version_tmp
 tmp
 .rbx
 database.db
+database.sqlite
 log/
 tmp/

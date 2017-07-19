@@ -21,4 +21,8 @@ ActiveRecord::Schema.define(:version => 20130103115400) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "entities_following_entities", :force => true do |t|
+    t.integer   "follower_id"
+    t.integer   "target_id"
+  end
 end
