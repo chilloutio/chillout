@@ -91,7 +91,14 @@ class ClientIntegrationTest < ChilloutTestCase
   private
 
   def self.active_job_4_test_helper?
-    instance_method(:assert_performed_jobs).arity == 1 && instance_method(:assert_enqueued_jobs).arity == 1
+    instance_method(:assert_performed_jobs).arity == 1 &&
+    instance_method(:assert_enqueued_jobs).arity == 1
+  end
+
+  def self.active_job_5_0_test_helper?
+    instance_method(:assert_performed_jobs).arity == -2 &&
+    instance_method(:assert_enqueued_jobs).arity == -2 &&
+    !instance_method(:assert_enqueued_jobs).parameters.flatten.include?(:queue)
   end
 
   if active_job_4_test_helper?
@@ -104,4 +111,11 @@ class ClientIntegrationTest < ChilloutTestCase
       end
     })
   end
+
+  if active_job_5_0_test_helper?
+    def assert_enqueued_jobs(number, only: nil, queue: nil, &block)
+      super(number, only: only, &block)
+    end
+  end
+
 end
